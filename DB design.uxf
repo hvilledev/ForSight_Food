@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>13</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>65</x>
+      <y>104</y>
+      <w>273</w>
+      <h>273</h>
+    </coordinates>
+    <panel_attributes>Weights and Meastures
+--
+-id: Long
+autoincrement
+--
+Unit_A pointer
+--
+Unit_B pointer
+--
+Factor
+long
+--
+Sytem Constant
+  Preloaded data.
+  Y/N  Binary switch.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>494</x>
+      <y>104</y>
+      <w>273</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>Items
+--
+-id: Long
+autoincrement
+--
+Product_Xref
+--
+Location
+--
+NFC Code
+long
+--
+Item_Count
+int
+--
+Last Added Time Stamp
+date/time</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>65</x>
+      <y>429</y>
+      <w>273</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>Units
+--
+-id: Long
+autoincrement
+--
+Unit Descripton
+VARCHAR(25)
+--
+Sytem Constant
+  Preloaded data.
+  Y/N  Binary switch.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>325</x>
+      <y>182</y>
+      <w>104</w>
+      <h>325</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+ n
+ .
+ .
+ 1
+</panel_attributes>
+    <additional_attributes>10.0;230.0;60.0;230.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>325</x>
+      <y>208</y>
+      <w>65</w>
+      <h>286</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+ n
+ .
+ .
+ 1</panel_attributes>
+    <additional_attributes>10.0;200.0;30.0;200.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>325</x>
+      <y>234</y>
+      <w>663</w>
+      <h>351</h>
+    </coordinates>
+    <panel_attributes>lt
+1..n</panel_attributes>
+    <additional_attributes>10.0;200.0;100.0;200.0;100.0;240.0;410.0;240.0;410.0;10.0;490.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>962</x>
+      <y>52</y>
+      <w>273</w>
+      <h>455</h>
+    </coordinates>
+    <panel_attributes>Products
+--
+id   long
+primary key
+autoincrement
+--
+Desc
+VARCHAR (50)
+not null
+--
+Units Xref
+int
+--
+Units Per
+int
+--
+barcode
+int
+--
+Reorder At
+int
+--
+Category 1
+--
+Category 2
+--
+Category 3
+ </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>754</x>
+      <y>91</y>
+      <w>234</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+m1=1..n
+m2=n..1
+m1=1..n</panel_attributes>
+    <additional_attributes>160.0;10.0;90.0;10.0;90.0;80.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>923</y>
+      <w>923</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>Note..
+Identical Product can have mny Item records and Item records can represent mny indivicual
+items.  IE.  One record for chickpeas has count of 3, another has count of 3, so total for 
+chickpeas is 6.  reorder point of 4 should not trigger need to buy more.
+
+Checking for reoder
+	Sum ammounts for all of prodkuct xfer in itmes.  Is is greater than reoder level in Products
+
+	This could mean that the mose effecient way is to only bulld the grocery list when asked.
+	</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>858</x>
+      <y>598</y>
+      <w>273</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>Qualifiers
+--
+id
+long
+--
+Type
+1-locaton
+2-category
+--
+Description
+--
+System Variable
+T/F</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1118</x>
+      <y>377</y>
+      <w>156</w>
+      <h>286</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;200.0;100.0;200.0;100.0;50.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1118</x>
+      <y>351</y>
+      <w>182</w>
+      <h>325</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;230.0;120.0;230.0;120.0;50.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1118</x>
+      <y>325</y>
+      <w>208</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;260.0;140.0;260.0;140.0;50.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>1157</x>
+      <y>611</y>
+      <w>130</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>1..n</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>754</x>
+      <y>234</y>
+      <w>130</w>
+      <h>455</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=n..1
+m2=1..n
+</panel_attributes>
+    <additional_attributes>80.0;320.0;30.0;320.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

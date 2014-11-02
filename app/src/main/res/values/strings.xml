@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ForSight Food</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="stores_title_text">Available Stores</string>
+    <string name="descriptionText">Description</string>
+    <string name="addDescHintText">Add Description</string>
+    <string name="locationText">Location</string>
+    <string name="locatedWhereHintText">Located where?</string>
+    <string name="categoryText">Categories</string>
+    <string name="CategoryHintText">Categorize</string>
+    <string name="taggedText">Tagged</string>
+    <string name="nfcText">NFC</string>
+    <string name="barCodeText">Bar Code</string>
+    <string name="noneText">None</string>
+    <string name="lastUpdatedText">Last Updated</string>
+    <string name="manageItemsTitleText">Stores Item</string>
+    <string name="saveText">Save</string>
+    <string name="clearText">Clear</string>
+    <string name="unitMgmtTitle">Unit Management</string>
+    <string name="unitUnitText">Unit</string>
+    <string name="unitDescHint">Unit Description</string>
+    <string name="unitNoteTitleText">Note;\:</string>
+
+    <string-array name="dummy_stores_list">
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**four</item>
+    </string-array>
+
+    <string-array name="dummy_stores_list2">
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**one</item>, <item>**two</item>, <item>**three</item>,
+        <item>**four</item>
+    </string-array>
+
+</resources>

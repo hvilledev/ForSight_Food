@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>912</x>
+      <y>248</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::FatClass
+{Some Properties}
+--
+-id: Long
+_-ClassAttribute: Long_
+--
+#Operation(i: int): int
+/+AbstractOperation()/
+--
+Responsibilities
+-- Resp1
+*-- Resp2*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>136</y>
+      <w>168</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Units and Conversions
+--
+-id: Long
+autoincrement
+--
+Unit_A pointer
+--
+Unit_B pointer
+--
+Factor
+long
+--
+Sytem Constant
+  Preloaded data.
+  Y/N  Binary switch.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>136</y>
+      <w>168</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>Items
+--
+-id: Long
+autoincrement
+--
+Product_Xref
+--
+Units_Xref
+--
+NFC Code
+long
+--
+Unit_Count
+int
+--
+Category
+- 0 to 9999 were pair of digits
+represents a category.
+  0103 ==  grain, organic</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>336</y>
+      <w>168</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>Units
+--
+-id: Long
+autoincrement
+--
+Unit Descripton
+VARCHAR(25)
+--
+Sytem Constant
+  Preloaded data.
+  Y/N  Binary switch.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>184</y>
+      <w>64</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+ n
+ .
+ .
+ 1
+</panel_attributes>
+    <additional_attributes>10.0;230.0;60.0;230.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>200</y>
+      <w>40</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+ n
+ .
+ .
+ 1</panel_attributes>
+    <additional_attributes>10.0;200.0;30.0;200.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>200</y>
+      <w>120</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+ n
+ .
+ .
+ 1</panel_attributes>
+    <additional_attributes>10.0;220.0;100.0;220.0;100.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>376</y>
+      <w>168</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>Products
+
+
+--
+id   long
+primary key
+autoincrement
+--
+Desc
+VARCHAR (50)
+not null
+--
+barcode
+int
+--
+
+ </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>184</y>
+      <w>80</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+m1=1..n
+m2=n..1
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;320.0;80.0;320.0;80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

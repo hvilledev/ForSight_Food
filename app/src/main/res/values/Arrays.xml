@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!--Units Table initial data-->
+    
+    <string-array name="unitsCol1">
+        <item>Liter</item>
+        <item>Milliliter</item>
+        <item>Kilogram</item>
+        <item>Gram</item>
+        <item>Cup-US</item>
+        <item>Cup-UK</item>
+        <item>Quart</item>
+        <item>Pint</item>
+        <item>Gallon-US</item>
+        <item>Ounce-US</item>
+        <item>Fluid Ounce-US</item>
+        <item>Tablespoon-US</item>
+        <item>Teaspoon-US</item>
+        <item>Gallon-UK</item>
+        <item>Ounce-UK</item>
+        <item>Fluid Ounce-UK</item>
+        <item>Tablespoon-UK</item>
+        <item>Teaspoon-UK</item>
+
+    </string-array>
+    <string-array name="unitsCol2">
+        <item>m</item>
+        <item>m</item>
+        <item>m</item>
+        <item>m</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+        <item>i</item>
+
+    </string-array>
+
+    <string-array name="wandmCol1">
+<item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Liter</item>
+        <item>Cup-US</item>
+        <item>Cup-US</item>
+        <item>Cup-US</item>
+        <item>Pint</item>
+        <item>Gallon-US</item>
+        <item>Kilogram</item>
+        <item>Kilogram</item>
+        <item>Kilogram</item>
+        <item>Pound</item>
+        <item>Cup-US White Flour</item>
+        <item>Cup-US Packed Brown Suger</item>
+        <item>Cup-US Butter</item>
+        <item>Cup-US Bread Flour</item>
+        <item>Cup-US Rolled Oats</item>
+        <item>Cup-US White Suger</item>
+        <item>Cup-US Honey</item>
+        <item>Cup-US Molasses</item>
+        <item>Cup-US Syrup</item>
+        <item>Cup-US All Purpose Flour</item>
+        <item>Cup-US Walnuts Chopped</item>
+        <item>Cup-US Coconut Shredded</item>
+        <item>Cup-US Chocolate Chips</item>
+        <item>Large Egg</item>
+        <item>Egg Yoke</item>
+        <item>Cup-US Cream Cheese</item>
+        <item>Cup-US Heavy Cream</item>
+        <item>Cup-US Sour Cream</item>
+        <item>Cup-US Yogurt</item>
+        <item>Cup-US Icing Sugar</item>
+        <item>Cup-US Cocoa</item>
+        <item>Cup-US Cornstarch</item>
+        <item>Teaspoon Baking Powder</item>
+        <item>Teaspoon Baking Soda</item>
+        <item>Teaspoon Salt</item>
+        <item>Cup-US Milk</item>
+        <item>Egg White</item>
+
+    </string-array>
+
+
+    <string-array name="wandmCol2">
+        <item>Milliliter</item>
+        <item>Gallon-US</item>
+        <item>Quart-US</item>
+        <item>Pint-US</item>
+        <item>Teaspoon-US</item>
+        <item>Tablespoon-US</item>
+        <item>Cup-US</item>
+        <item>Teaspoon-UK</item>
+        <item>Tablespoon-UK</item>
+        <item>Cup-UK</item>
+        <item>Tablespoon-US</item>
+        <item>Teaspoon-US</item>
+        <item>Pint-US</item>
+        <item>Quart-US</item>
+        <item>Quart-US</item>
+        <item>Gram</item>
+        <item>Pound</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Ounce</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+        <item>Gram</item>
+
+    </string-array>
+
+
+    <string-array name="wandmCol3">
+        <item>1000</item>
+        <item>.2642</item>
+        <item>1.057</item>
+        <item>2.114</item>
+        <item>202.9</item>
+        <item>67.63</item>
+        <item>4.227</item>
+        <item>200</item>
+        <item>66.67</item>
+        <item>4.167</item>
+        <item>16</item>
+        <item>48</item>
+        <item>.4297</item>
+        <item>.5</item>
+        <item>4</item>
+        <item>1000</item>
+        <item>2.205</item>
+        <item>35.27</item>
+        <item>16</item>
+        <item>128</item>
+        <item>215</item>
+        <item>277</item>
+        <item>136</item>
+        <item>85</item>
+        <item>201</item>
+        <item>340</item>
+        <item>340</item>
+        <item>340</item>
+        <item>4.5</item>
+        <item>4.3</item>
+        <item>2.5</item>
+        <item>5.35</item>
+        <item>1.75</item>
+        <item>0.7</item>
+        <item>8.2</item>
+        <item>8.4</item>
+        <item>8.6</item>
+        <item>8.6</item>
+        <item>225</item>
+        <item>105</item>
+        <item>125</item>
+        <item>4</item>
+        <item>8</item>
+        <item>8</item>
+        <item>245</item>
+        <item>30</item>
+
+    </string-array>
+
+</resources>

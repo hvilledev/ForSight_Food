@@ -1,0 +1,9 @@
+CREATE TABLE productsTable(_id integer primary key autoincrement, description varchar(50), units_xref integer, units_per smallint, barcode integer, reorder_at smallint, cat1_xref integer, cat2_xref integer, cat3_xref integer);
+
+CREATE TABLE qualifiersTable(_id integer primary key autoincrement, type integer, desc varcar(25));
+
+CREATE TABLE wandmTable(_id integer primary key autoincrement, unit_a_xref integer, unit_b_xref integer, factor real);
+
+CREATE TABLE unitTable (_id integer primary key autoincrement, description varchar(25), system varchar(1));
+
+CREATE TABLE itemsTable(_id integer primary key autoincrement, product_xref integer not null, location_xref integer, nfc_code integer, item_count smallint not null, last_added integer not null);
