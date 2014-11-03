@@ -246,7 +246,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
         _db.execSQL(createItemsQuery);
 
-        _db.close();
+//        _db.close();
 
 //            this.InitializeUnitTable_Unit();
         this.initializeUnitTable_Unit(context);
@@ -277,7 +277,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
     public void closeUnit() {
 
-        _db.close();
+//        _db.close();
     }
 
 
@@ -377,14 +377,14 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
             ContentValues values = new ContentValues();
 
-            SQLiteDatabase _db = this.getWritableDatabase();
+            _db = this.getWritableDatabase();
 
             values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
             values.put(FN_UNITS_SYSTEM, unitQueryValues.get(FN_UNITS_SYSTEM));
 
             _db.insert(UNITS_TABLE_NAME, null, values);
 
-            _db.close();
+//            _db.close();
         }
 
 //
@@ -394,7 +394,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
             ContentValues values = new ContentValues();
 
-            SQLiteDatabase _db = this.getWritableDatabase();
+            _db = this.getWritableDatabase();
 
 
             values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
@@ -407,7 +407,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
                     FN_UNITS_PRIMARY_KEY + " = ?",
                     new String[]{unitQueryValues.get(FN_UNITS_PRIMARY_KEY)});
 
-            _db.close();
+//            _db.close();
 
             return updateResults;
 
@@ -416,12 +416,12 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //        Delete a Unit.
 //
         public void unitDelete(String id) {
-            SQLiteDatabase _db = this.getWritableDatabase();
+            _db = this.getWritableDatabase();
             String deleteQuery = "DELETE FROM " + DATABASE_NAME +
                     " WHERE " + FN_UNITS_PRIMARY_KEY + "=' " + id + "'";
             _db.execSQL(deleteQuery);
 
-            _db.close();
+//            _db.close();
 
         }
 //
@@ -433,7 +433,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
             String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME;
 
-            SQLiteDatabase _db = this.getWritableDatabase();
+            _db = this.getWritableDatabase();
 
             Cursor cursor = _db.rawQuery(selectQuery, null);
 
@@ -454,7 +454,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
             }
 
-            _db.close();
+//            _db.close();
 
             return unitsArrayList;
 
@@ -467,7 +467,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //            Don't need ArrayList<HashMap... like above because only returning 1 Unit.
             HashMap<String, String> unitsMap = new HashMap<String, String>();
 
-            SQLiteDatabase _db = this.getReadableDatabase();
+            _db = this.getReadableDatabase();
             String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME
                     + " WHERE " + FN_UNITS_PRIMARY_KEY + " = '" + id + "'";
 
@@ -487,7 +487,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
             }
 
-            _db.close();
+//            _db.close();
 
             return unitsMap;
 
