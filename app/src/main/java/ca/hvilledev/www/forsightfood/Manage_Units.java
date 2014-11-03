@@ -4,22 +4,29 @@ import android.app.LauncherActivity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_DESCRIPTION;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
+import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
 
 
 /**
@@ -31,29 +38,60 @@ public class Manage_Units extends ListActivity {
     private UnitsListAdapter lvUnitsAdapter;
     ArrayList<UnitsViewWrapper> adapterUnits;
     EditText inputUnit;
-    ArrayList<HashMap<String, String>> unitsHashList;
+    ArrayList<HashMap<String, String>> unitsArrayHashList;
     String[] unitsList;
     TextView lineItemId;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         adapterUnits=new ArrayList<UnitsViewWrapper>();
-
-        UnitsViewWrapper unit1 = new UnitsViewWrapper("Liter", "m");
-        this.adapterUnits.add(unit1);
-         unit1 = new UnitsViewWrapper("Cup-US", "i");
-        this.adapterUnits.add(unit1);
-         unit1 = new UnitsViewWrapper("Pint", "i");
-        this.adapterUnits.add(unit1);
+//
+//        UnitsViewWrapper unit1 = new UnitsViewWrapper("Liter", "m");
+//        this.adapterUnits.add(unit1);
+//         unit1 = new UnitsViewWrapper("Cup-US", "i");
+//        this.adapterUnits.add(unit1);
+//         unit1 = new UnitsViewWrapper("Pint", "i");
+//        this.adapterUnits.adapterUnits.add(unit1);
 
         setContentView(R.layout.units);
 
-        lvUnitsAdapter = new UnitsListAdapter(this, R.layout.unit_item,adapterUnits);
+        ListView lv=getListView();
 
-        setListAdapter(lvUnitsAdapter);
+        SQLite_Control unitDB = new SQLite_Control(this);
+        unitsArrayHashList = unitDB.getAllUnits();
 
+        if (unitsArrayHashList.size()!=0){
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    lineItemId = (TextView) findViewById(R.id.unitItemId);
+                    lineItemId = (TextView) view.findViewById(R.id.unitItemId);
+                    String unitIdValue = lineItemId.getText().toString();
+                    Intent theIntent = new Intent(getApplicationContext(), EditUnit.class);
+                    theIntent.putExtra(FN_UNITS_PRIMARY_KEY, unitIdValue);
+//                    theIntent.putExtra("key", l);
+                    startActivity(theIntent);
+                }
+
+          });
+        }
+//**********************
+//        lvUnitsAdapter = new UnitsListAdapter(this, R.layout.unit_//e////apterUnits);
+//
+////        setListAdapter(new UnitsListAdapter(this, R.layout.unit_i//m,adapterUnits));
+//        setListAdapter(this.lvUnitsAdapter);
+//*************************
+        ListAdapter adapter = new SimpleAdapter(
+                this,
+                unitsArrayHashList,
+                R.layout.unit_item,
+                new String[] {FN_UNITS_PRIMARY_KEY,FN_UNITS_DESCRIPTION,FN_UNITS_SYSTEM},
+                new int[] {R.id.unitItemId,R.id.unitItemDesc, R.id.unitItemSys});
+        setListAdapter(adapter);
     }
 
     @Override
@@ -76,45 +114,7 @@ public class Manage_Units extends ListActivity {
     }
 
 
-//    public void ListWith2Icon(View view) {
-//        setContentView(R.layout.units);
-//        setListAdapter(new IconicAdapter());
 
-//        don't have this
-//        selection=(TextView)findViewById(R.id.selection);
-    }
-
-//
-//    public void onListItemClick(ListView parent, View v,									int position, long id) {
-//        selection.setText(SmartPhones[position]);
-//    }
-
-//    class IconicAdapter extends ArrayAdapter<String> {
-//        IconicAdapter() {
-//            super(Manage_Units.this, R.layout.unit_item, SmartPhones);
-//        }
-//
-//        public View getView(int position, View convertView,
-//                            ViewGroup parent) {
-//            LayoutInflater inflater = getLayoutInflater();
-//            View row = inflater.inflate(R.layout.row_with_icon, parent, false);
-//            TextView label = (TextView) row.findViewById(R.id.label);
-//            label.setText(SmartPhones[position]);
-//
-//            ImageView icon = (ImageView) row.findViewById(R.id.icon);
-//
-//            if (SmartPhones[position].startsWith("Samsung")) {
-//                icon.setImageResource(R.drawable.ok);
-//            } else {
-//                icon.setImageResource(R.drawable.radio);
-//            }
-//
-//            return (row);
-//        }
-//    }
-
-
-//    HOLDER EXAMPLE
 
     class UnitsListAdapter extends BaseAdapter {
 
@@ -130,6 +130,8 @@ public class Manage_Units extends ListActivity {
             this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             this.mResource = resource;
+            mData = new ArrayList<UnitsViewWrapper>();
+
             this.mData = data;
 
         }
@@ -169,6 +171,7 @@ public class Manage_Units extends ListActivity {
                 mView = convertView;
             }
 
+
             return this.bindData(mView, position);
 
         }
@@ -192,12 +195,11 @@ public class Manage_Units extends ListActivity {
 
             return view;
         }
+        public void updateAdapter(Cursor cu) {
+            cursor = cu;
 
-//        public static class ViewHolder {
-//            return TextView textView;
-//    }
-//
-//
-//    }
-
+            //and call notifyDataSetChanged
+            notifyDataSetChanged();
+        }
+    }
 }

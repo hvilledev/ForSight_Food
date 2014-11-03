@@ -17,7 +17,7 @@ import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
 
 public class EditUnit extends Activity{
 
-    EditText unitUpdtDesc, unitUpdtSys;
+    EditText unitUpdtId,unitUpdtDesc, unitUpdtSys;
     public static EditUnit instance;
 
     SQLite_Control dbTools = new SQLite_Control(this);
@@ -27,19 +27,22 @@ public class EditUnit extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_unit);
 
+        unitUpdtId = (EditText) findViewById(R.id.unitIdEditText);
         unitUpdtDesc = (EditText) findViewById(R.id.unitDescriptionEditText);
         unitUpdtSys = (EditText) findViewById(R.id.unitSystemEditText);
 
         Intent theIntent = getIntent();
 
         String unitId = theIntent.getStringExtra(FN_UNITS_PRIMARY_KEY);
+//        Long unitId = theIntent.getLongExtra("key", 0);
 
         HashMap<String, String> unitList = dbTools.getUnitInfo(unitId);
 
         if(unitList.size() != 0){
 
-            Log.i("EditUnit if :", "udesc " + FN_UNITS_DESCRIPTION + "  usys  "+ FN_UNITS_SYSTEM);
+            Log.i("************EditUnit if :","ukey "+ FN_UNITS_PRIMARY_KEY + " udesc " + FN_UNITS_DESCRIPTION + "  usys  "+ FN_UNITS_SYSTEM);
 
+            unitUpdtId.setText(unitList.get(FN_UNITS_PRIMARY_KEY));
             unitUpdtDesc.setText(unitList.get(FN_UNITS_DESCRIPTION));
             unitUpdtSys.setText(unitList.get(FN_UNITS_SYSTEM));
 
@@ -52,6 +55,7 @@ public class EditUnit extends Activity{
             @Override
             public void onClick(View view) {
 
+                EditText unitUpdtId = (EditText) findViewById(R.id.unitIdEditText);
                 EditText unitUpdtDesc = (EditText) findViewById(R.id.unitDescriptionEditText);
                 EditText unitUpdtSys = (EditText) findViewById(R.id.unitSystemEditText);
 
@@ -64,7 +68,12 @@ public class EditUnit extends Activity{
 //                unitUpdtSys.setText(unitList.get(FN_UNITS_SYSTEM));
 
                 HashMap<String, String> unitUpdtHashMap = new HashMap<String, String>();
-                unitUpdtHashMap.put(FN_UNITS_PRIMARY_KEY, unitId);
+
+    Log.i("editunit id", unitUpdtId.getText().toString());
+    Log.i("editunit desc", unitUpdtDesc.getText().toString());
+    Log.i("editunit sys", unitUpdtSys.getText().toString());
+
+                unitUpdtHashMap.put(FN_UNITS_PRIMARY_KEY, unitUpdtId.getText().toString());
                 unitUpdtHashMap.put(FN_UNITS_DESCRIPTION, unitUpdtDesc.getText().toString());
                 unitUpdtHashMap.put(FN_UNITS_SYSTEM, unitUpdtSys.getText().toString());
 
@@ -74,6 +83,7 @@ public class EditUnit extends Activity{
 
 
 
+                finish();
             }
         });
 

@@ -249,7 +249,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //        _db.close();
 
 //            this.InitializeUnitTable_Unit();
-        this.initializeUnitTable_Unit(context);
+        this.initializeUnitTable_Unit(context,_db);
 
 
     }
@@ -320,6 +320,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
         if (c != null) {
             c.moveToFirst();
         }
+        c.close();
         return c;
     }
 
@@ -331,6 +332,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
         if (c != null) {
             c.moveToFirst();
         }
+        c.close();
         return c;
     }
 
@@ -348,7 +350,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
 
 
-        public void initializeUnitTable_Unit(Context ctx) {
+        public void initializeUnitTable_Unit(Context ctx,SQLiteDatabase _db) {
 
             String[] unitCol1, unitCol2;
 
@@ -363,9 +365,9 @@ public class SQLite_Control extends SQLiteOpenHelper {
                 HashMap<String, String> hm = new HashMap<String, String>();
 
                 hm.put(FN_UNITS_DESCRIPTION, unitCol1[i]);
-                hm.put(FN_UNITS_SYSTEM, unitCol2[1]);
+                hm.put(FN_UNITS_SYSTEM, unitCol2[i]);
 
-                insertUnit(hm);
+                insertUnit(_db,hm);
 
             }
         }
@@ -373,11 +375,11 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //
 //        Insert a Unit.
 //
-        public void insertUnit(HashMap<String, String> unitQueryValues) {
+        public void insertUnit(SQLiteDatabase _db, HashMap<String, String> unitQueryValues) {
 
             ContentValues values = new ContentValues();
 
-            _db = this.getWritableDatabase();
+//            _db = this.getWritableDatabase();
 
             values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
             values.put(FN_UNITS_SYSTEM, unitQueryValues.get(FN_UNITS_SYSTEM));
@@ -397,6 +399,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
             _db = this.getWritableDatabase();
 
 
+            values.put(FN_UNITS_PRIMARY_KEY, unitQueryValues.get(FN_UNITS_PRIMARY_KEY));
             values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
             values.put(FN_UNITS_SYSTEM, unitQueryValues.get(FN_UNITS_SYSTEM));
 
@@ -427,15 +430,18 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //
 //        Read All Units from DB.
 //
-        public ArrayList<HashMap<String, String>> getAllUnits() {
+        public  ArrayList<HashMap<String, String>> getAllUnits() {
 
             ArrayList<HashMap<String, String>> unitsArrayList = new ArrayList<HashMap<String, String>>();
 
+//            String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME +" ORDER BY " + FN_UNITS_DESCRIPTION;
             String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME;
 
-            _db = this.getWritableDatabase();
+            SQLiteDatabase gaDatabase = this.getReadableDatabase();
 
-            Cursor cursor = _db.rawQuery(selectQuery, null);
+//            _db = this.getWritableDatabase();
+
+            Cursor cursor = gaDatabase.rawQuery(selectQuery, null);
 
             if (cursor.moveToFirst()) {
 
@@ -454,7 +460,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
             }
 
-//            _db.close();
+            cursor.close();
 
             return unitsArrayList;
 
@@ -462,12 +468,14 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //
 //        Read one Unit from database.
 //
-        public HashMap<String, String> getUnitInfo(String id) {
+//    public HashMap<String, String> getUnitInfo(String id) {
+    public HashMap<String, String> getUnitInfo(String id) {
 
 //            Don't need ArrayList<HashMap... like above because only returning 1 Unit.
             HashMap<String, String> unitsMap = new HashMap<String, String>();
 
             _db = this.getReadableDatabase();
+
             String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME
                     + " WHERE " + FN_UNITS_PRIMARY_KEY + " = '" + id + "'";
 
@@ -487,7 +495,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
             }
 
-//            _db.close();
+            cursor.close();
 
             return unitsMap;
 
