@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class Manage_Units extends ListActivity {
     String[] unitsList;
     TextView lineItemId;
     private Cursor cursor;
+    private ListView lv;
+    private SimpleAdapter simpAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +61,12 @@ public class Manage_Units extends ListActivity {
 
         setContentView(R.layout.units);
 
-        ListView lv=getListView();
-
         SQLite_Control unitDB = new SQLite_Control(this);
         unitsArrayHashList = unitDB.getAllUnits();
+
+        lv= (ListView) findViewById(android.R.id.list);
+
+
 
         if (unitsArrayHashList.size()!=0){
 
@@ -71,30 +76,55 @@ public class Manage_Units extends ListActivity {
 //                    lineItemId = (TextView) findViewById(R.id.unitItemId);
                     lineItemId = (TextView) view.findViewById(R.id.unitItemId);
                     String unitIdValue = lineItemId.getText().toString();
-                    Intent theIntent = new Intent(getApplicationContext(), EditUnit.class);
+//                    Intent theIntent = new Intent(getApplicationContext(), EditUnit.class);
+//
+//                    theIntent.putExtra(FN_UNITS_PRIMARY_KEY, unitIdValue);
+//
+//                    startActivity(theIntent);
+
+                    Context ctxt = getApplicationContext();
+                    Intent theIntent = new Intent(ctxt, EditUnit.class);
+
                     theIntent.putExtra(FN_UNITS_PRIMARY_KEY, unitIdValue);
-//                    theIntent.putExtra("key", l);
-                    startActivity(theIntent);
+
+                    startActivityForResult(theIntent, 100);
                 }
 
           });
         }
 //**********************
-//        lvUnitsAdapter = new UnitsListAdapter(this, R.layout.unit_//e////apterUnits);
-//
-////        setListAdapter(new UnitsListAdapter(this, R.layout.unit_i//m,adapterUnits));
-//        setListAdapter(this.lvUnitsAdapter);
-//*************************
-        ListAdapter adapter = new SimpleAdapter(
+        lvUnitsAdapter = new UnitsListAdapter(
                 this,
-                unitsArrayHashList,
-                R.layout.unit_item,
-                new String[] {FN_UNITS_PRIMARY_KEY,FN_UNITS_DESCRIPTION,FN_UNITS_SYSTEM},
-                new int[] {R.id.unitItemId,R.id.unitItemDesc, R.id.unitItemSys});
-        setListAdapter(adapter);
+                unitsArrayHashList);
+
+        lv.setAdapter(lvUnitsAdapter);
+//*************************
+//        simpAdapter = new SimpleAdapter(
+//                this,
+//                unitsArrayHashList,
+//                R.layout.unit_item,
+//                new String[] {FN_UNITS_PRIMARY_KEY,FN_UNITS_DESCRIPTION,FN_UNITS_SYSTEM},
+//                new int[] {R.id.unitItemId,R.id.unitItemDesc, R.id.unitItemSys});
+//        setListAdapter(simpAdapter);
+//*************************
     }
 
-    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.i("in  onActivityResult   requestCode :", requestCode + "  resultCode =" + resultCode);
+        if (requestCode == 100) {
+            if(resultCode == RESULT_OK){
+                lvUnitsAdapter.notifyDataSetChanged();
+                lv.invalidateViews();
+                lv.refreshDrawableState();
+
+            }else {
+                Log.i("onActivityResult : ", " resultCode ="+resultCode);
+            }
+        }
+    }//onActivityResult
+
+    // @Override
     public void onListItemClick(ListView l_view, View view, int position, long id) {
 
 //        This puts a checkbox on the right of each item to allow for multiple select
@@ -114,92 +144,94 @@ public class Manage_Units extends ListActivity {
     }
 
 
+//
+//
+//    class UnitsListAdapter extends BaseAdapter {
+//
+//        private ArrayList<UnitsViewWrapper> mData;
+//        private LayoutInflater mInflater;
+//        private int mResource;
+//
+//
+//        public UnitsListAdapter(Context context,
+//                                int resource,
+//                                ArrayList<UnitsViewWrapper> data) {
+//
+//            this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//            Context ctx = context;
+//            this.mResource = resource;
+//            mData = new ArrayList<UnitsViewWrapper>();
+//
+//            this.mData = data;
+//
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return this.mData.size();
+//        }
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return this.mData.get(position);
+//        }
+//
+//        public void addItem(final UnitsViewWrapper item) {
+//            mData.add(item);
+//            notifyDataSetChanged();
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//
+//////            UnitsViewWrapper wrapper = null;
+//            View mView;
+//
+//            if (convertView == null) {
+//                Log.i("getView if ", "*** " + position + "  " + convertView);
+//
+//                ////            convertView = mInflater.inflate(R.layout.unit_item, null);
+//                mView = mInflater.inflate(mResource, parent, false);
+//
+//            } else {
+//                mView = convertView;
+//            }
+//
+//
+//            return this.bindData(mView, position);
+//
+//        }
+//
+//        public View bindData(View view, int position) {
+//
+//            if (mData.get(position) == null) {
+//                return view;
+//            }
+//
+//////            UnitsViewWrapper item = mData.get(position);
+//            UnitsViewWrapper item = this.mData.get(position);
+//
+//            View viewElement = view.findViewById(R.id.unitItemDesc);
+//            TextView tv = (TextView) viewElement;
+//            tv.setText(item.description);
+//
+//            viewElement = view.findViewById(R.id.unitItemSys);
+//            tv = (TextView) viewElement;
+//            tv.setText(item.system);
+//
+//            return view;
+//        }
+//        public void updateAdapter(Cursor cu) {
+//            cursor = cu;
+//
+//            //and call notifyDataSetChanged
+//            notifyDataSetChanged();
+//        }
+//    }
 
-
-    class UnitsListAdapter extends BaseAdapter {
-
-        private ArrayList<UnitsViewWrapper> mData;
-        private LayoutInflater mInflater;
-        private int mResource;
-
-
-        public UnitsListAdapter(Context context,
-                                int resource,
-                                ArrayList<UnitsViewWrapper> data) {
-
-            this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            this.mResource = resource;
-            mData = new ArrayList<UnitsViewWrapper>();
-
-            this.mData = data;
-
-        }
-
-        @Override
-        public int getCount() {
-            return this.mData.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return this.mData.get(position);
-        }
-
-        public void addItem(final UnitsViewWrapper item) {
-            mData.add(item);
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-////            UnitsViewWrapper wrapper = null;
-            View mView;
-
-            if (convertView == null) {
-                Log.i("getView if ", "*** " + position + "  " + convertView);
-
-                ////            convertView = mInflater.inflate(R.layout.unit_item, null);
-                mView = mInflater.inflate(mResource, parent, false);
-
-            } else {
-                mView = convertView;
-            }
-
-
-            return this.bindData(mView, position);
-
-        }
-
-        public View bindData(View view, int position) {
-
-            if (mData.get(position) == null) {
-                return view;
-            }
-
-////            UnitsViewWrapper item = mData.get(position);
-            UnitsViewWrapper item = this.mData.get(position);
-
-            View viewElement = view.findViewById(R.id.unitItemDesc);
-            TextView tv = (TextView) viewElement;
-            tv.setText(item.description);
-
-            viewElement = view.findViewById(R.id.unitItemSys);
-            tv = (TextView) viewElement;
-            tv.setText(item.system);
-
-            return view;
-        }
-        public void updateAdapter(Cursor cu) {
-            cursor = cu;
-
-            //and call notifyDataSetChanged
-            notifyDataSetChanged();
-        }
-    }
 }

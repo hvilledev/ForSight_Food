@@ -13,18 +13,21 @@ import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
 
 public class UnitsViewWrapper {
 
+    public String key;
     public String description;
     public String system;
 
 
     public UnitsViewWrapper()
     {
-        this(FN_UNITS_DESCRIPTION, FN_UNITS_SYSTEM);
+        this(FN_UNITS_PRIMARY_KEY,FN_UNITS_DESCRIPTION, FN_UNITS_SYSTEM);
     }
 
-    public UnitsViewWrapper(String description, String system)
+    public UnitsViewWrapper(String key, String description, String system)
     {
         super();
+
+        this.key = key;
         this.description = description;
         this.system = system;
 

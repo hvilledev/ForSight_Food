@@ -80,8 +80,13 @@ public class EditUnit extends Activity{
                 Long updateResults = dbTools.updateUnit(unitUpdtHashMap);
 
                 Log.i("editunit update", updateResults.toString());
+                Log.i("BEFORE setResult in EditUnit: ", unitId);
 
+//                Intent returnIntent = new Intent();
+//                returnIntent.putExtra("key",unitId);
+                setResult(RESULT_OK);
 
+                Log.i("After setResult in EditUnit: ", unitId);
 
                 finish();
             }

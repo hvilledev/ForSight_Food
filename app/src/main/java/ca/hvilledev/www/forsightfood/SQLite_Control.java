@@ -14,7 +14,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "forsight.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     /*
     Items Table details.
      */
@@ -350,121 +350,126 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
 
 
-        public void initializeUnitTable_Unit(Context ctx,SQLiteDatabase _db) {
+    public void initializeUnitTable_Unit(Context ctx,SQLiteDatabase _db) {
 
-            String[] unitCol1, unitCol2;
+        String[] unitCol1, unitCol2;
 
-            unitCol1 = ctx.getResources().getStringArray(R.array.unitsCol1);
-            unitCol2 = ctx.getResources().getStringArray(R.array.unitsCol2);
+        unitCol1 = ctx.getResources().getStringArray(R.array.unitsCol1);
+        unitCol2 = ctx.getResources().getStringArray(R.array.unitsCol2);
 
-            int i;
-            for (i = 0; i<unitCol1.length; i++) {
+        int i;
+        for (i = 0; i<unitCol1.length; i++) {
 
-                Log.i("unit for:", "Inserting "+ unitCol1[i] + "  " + unitCol2[i]);
+            Log.i("unit for:", "Inserting "+ unitCol1[i] + "  " + unitCol2[i]);
 
-                HashMap<String, String> hm = new HashMap<String, String>();
+            HashMap<String, String> hm = new HashMap<String, String>();
 
-                hm.put(FN_UNITS_DESCRIPTION, unitCol1[i]);
-                hm.put(FN_UNITS_SYSTEM, unitCol2[i]);
+            hm.put(FN_UNITS_DESCRIPTION, unitCol1[i]);
+            hm.put(FN_UNITS_SYSTEM, unitCol2[i].toUpperCase());
 
-                insertUnit(_db,hm);
+            insertUnit(_db,hm);
 
-            }
         }
+    }
 
 //
 //        Insert a Unit.
 //
-        public void insertUnit(SQLiteDatabase _db, HashMap<String, String> unitQueryValues) {
+    public void insertUnit(SQLiteDatabase _db, HashMap<String, String> unitQueryValues) {
 
-            ContentValues values = new ContentValues();
+        ContentValues values = new ContentValues();
 
 //            _db = this.getWritableDatabase();
 
-            values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
-            values.put(FN_UNITS_SYSTEM, unitQueryValues.get(FN_UNITS_SYSTEM));
+        values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
+        values.put(FN_UNITS_SYSTEM, unitQueryValues.get(FN_UNITS_SYSTEM));
 
-            _db.insert(UNITS_TABLE_NAME, null, values);
+        _db.insert(UNITS_TABLE_NAME, null, values);
 
 //            _db.close();
-        }
+    }
 
 //
 //        Update a Unit.
 //
-        public long updateUnit(HashMap<String, String> unitQueryValues) {
+    public long updateUnit(HashMap<String, String> unitQueryValues) {
 
-            ContentValues values = new ContentValues();
+        ContentValues values = new ContentValues();
 
-            _db = this.getWritableDatabase();
+        _db = this.getWritableDatabase();
 
 
-            values.put(FN_UNITS_PRIMARY_KEY, unitQueryValues.get(FN_UNITS_PRIMARY_KEY));
-            values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
-            values.put(FN_UNITS_SYSTEM, unitQueryValues.get(FN_UNITS_SYSTEM));
+        values.put(FN_UNITS_PRIMARY_KEY, unitQueryValues.get(FN_UNITS_PRIMARY_KEY));
+        values.put(FN_UNITS_DESCRIPTION, unitQueryValues.get(FN_UNITS_DESCRIPTION));
+        values.put(FN_UNITS_SYSTEM, unitQueryValues.get(FN_UNITS_SYSTEM));
 
-            Log.i("unit updateUnit:", DATABASE_NAME +", values, " +
-                    FN_UNITS_PRIMARY_KEY + " = ?,  new String[]{unitQueryValues.get(FN_UNITS_DESCRIPTION)");
+        Log.i("unit updateUnit:", DATABASE_NAME +", values, " +
+                FN_UNITS_PRIMARY_KEY + " = ?,  new String[]{unitQueryValues.get(FN_UNITS_DESCRIPTION)");
 
-            long updateResults =  _db.update(UNITS_TABLE_NAME, values,
-                    FN_UNITS_PRIMARY_KEY + " = ?",
-                    new String[]{unitQueryValues.get(FN_UNITS_PRIMARY_KEY)});
+        long updateResults =  _db.update(UNITS_TABLE_NAME, values,
+                FN_UNITS_PRIMARY_KEY + " = ?",
+                new String[]{unitQueryValues.get(FN_UNITS_PRIMARY_KEY)});
 
 //            _db.close();
 
-            return updateResults;
+        return updateResults;
 
-        }
+    }
 //
 //        Delete a Unit.
 //
-        public void unitDelete(String id) {
-            _db = this.getWritableDatabase();
-            String deleteQuery = "DELETE FROM " + DATABASE_NAME +
-                    " WHERE " + FN_UNITS_PRIMARY_KEY + "=' " + id + "'";
-            _db.execSQL(deleteQuery);
+    public void unitDelete(String id) {
+        _db = this.getWritableDatabase();
+        String deleteQuery = "DELETE FROM " + DATABASE_NAME +
+                " WHERE " + FN_UNITS_PRIMARY_KEY + "=' " + id + "'";
+        _db.execSQL(deleteQuery);
 
 //            _db.close();
 
-        }
+    }
+//
+//    public void resetListView(){
+//        notifyDataSetChanged();
+//    }
+
 //
 //        Read All Units from DB.
 //
-        public  ArrayList<HashMap<String, String>> getAllUnits() {
+    public  ArrayList<HashMap<String, String>> getAllUnits() {
 
-            ArrayList<HashMap<String, String>> unitsArrayList = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> unitsArrayList = new ArrayList<HashMap<String, String>>();
 
 //            String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME +" ORDER BY " + FN_UNITS_DESCRIPTION;
-            String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME;
 
-            SQLiteDatabase gaDatabase = this.getReadableDatabase();
+        SQLiteDatabase gaDatabase = this.getReadableDatabase();
 
 //            _db = this.getWritableDatabase();
 
-            Cursor cursor = gaDatabase.rawQuery(selectQuery, null);
+        Cursor cursor = gaDatabase.rawQuery(selectQuery, null);
 
-            if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
 
-                do {
+            do {
 
-                    HashMap<String, String> unitsMap = new HashMap<String, String>();
+                HashMap<String, String> unitsMap = new HashMap<String, String>();
 
-                    unitsMap.put(FN_UNITS_PRIMARY_KEY, cursor.getString(COL_UNITS_PRIMARY_KEY));
-                    unitsMap.put(FN_UNITS_DESCRIPTION, cursor.getString(COL_UNITS_DESCRIPTION));
-                    unitsMap.put(FN_UNITS_SYSTEM, cursor.getString(COL_UNITS_SYSTEM));
+                unitsMap.put(FN_UNITS_PRIMARY_KEY, cursor.getString(COL_UNITS_PRIMARY_KEY));
+                unitsMap.put(FN_UNITS_DESCRIPTION, cursor.getString(COL_UNITS_DESCRIPTION));
+                unitsMap.put(FN_UNITS_SYSTEM, cursor.getString(COL_UNITS_SYSTEM));
 
-                    unitsArrayList.add(unitsMap);
+                unitsArrayList.add(unitsMap);
 
 
-                } while (cursor.moveToNext());
-
-            }
-
-            cursor.close();
-
-            return unitsArrayList;
+            } while (cursor.moveToNext());
 
         }
+
+        cursor.close();
+
+        return unitsArrayList;
+
+    }
 //
 //        Read one Unit from database.
 //

@@ -14,15 +14,35 @@
         android:textSize="@dimen/title_text"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/unitUnitText"
-        android:id="@+id/textView1"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:background="@android:color/holo_blue_bright"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/unitUnitText"
+            android:id="@+id/textView1"
+            android:textStyle="bold"
+            android:layout_weight="4"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/unitSystemTitleText"
+            android:id="@+id/textView2a"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="right" />
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
@@ -31,7 +51,9 @@
         android:id="@+id/unitDesc"
         android:hint="@string/unitDescHint"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:visibility="gone"  />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,17 +62,19 @@
         android:text="@string/unitNoteTitleText"
         android:id="@+id/textView2"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:visibility="gone" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:inputType="textMultiLine"
         android:id="@+id/editText2"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:visibility="gone"/>
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@android:id/list"
         android:layout_gravity="center_horizontal" />
