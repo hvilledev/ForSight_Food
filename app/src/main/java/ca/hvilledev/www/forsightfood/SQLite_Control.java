@@ -248,7 +248,6 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
 //        _db.close();
 
-//            this.InitializeUnitTable_Unit();
         this.initializeUnitTable_Unit(context,_db);
 
 
@@ -270,10 +269,6 @@ public class SQLite_Control extends SQLiteOpenHelper {
         onCreate(_db);
     }
 
-//    public SQLite_Control openUnit() {
-//        db = myDBHelper.getWritableDatabase();
-//        return this;
-//    }
 
     public void closeUnit() {
 
@@ -427,10 +422,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //            _db.close();
 
     }
-//
-//    public void resetListView(){
-//        notifyDataSetChanged();
-//    }
+
 
 //
 //        Read All Units from DB.

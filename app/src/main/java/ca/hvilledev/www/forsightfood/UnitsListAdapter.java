@@ -60,22 +60,13 @@ class UnitsListAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-////            UnitsViewWrapper wrapper = null;
         View row;
-
 
         if (convertView == null) {
             Log.i("getView if ", "*** " + position + "  " + convertView);
 
-            ////            convertView = mInflater.inflate(R.layout.unit_item, null);
-//******************
             LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.unit_item, parent,false);
-
-
-//******************
-//            mView = mInflater.inflate(mResource, parent, false);
-//******************
 
         } else {
             row = convertView;
@@ -92,7 +83,6 @@ class UnitsListAdapter extends BaseAdapter {
         }
 
         View mRow = row;
-////            UnitsViewWrapper item = mData.get(position);
         HashMap<String,String > item = mData.get(position);
 
         View viewElement = mRow.findViewById(R.id.unitItemId);

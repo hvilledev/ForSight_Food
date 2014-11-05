@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
+import static ca.hvilledev.www.forsightfood.Manage_Units.updateUnitRowLv;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_DESCRIPTION;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
@@ -34,13 +36,13 @@ public class EditUnit extends Activity{
         Intent theIntent = getIntent();
 
         String unitId = theIntent.getStringExtra(FN_UNITS_PRIMARY_KEY);
-//        Long unitId = theIntent.getLongExtra("key", 0);
 
         HashMap<String, String> unitList = dbTools.getUnitInfo(unitId);
 
         if(unitList.size() != 0){
 
             Log.i("************EditUnit if :","ukey "+ FN_UNITS_PRIMARY_KEY + " udesc " + FN_UNITS_DESCRIPTION + "  usys  "+ FN_UNITS_SYSTEM);
+            Log.i("************EditUnit if :","unitUpdtId "+ unitUpdtId + " unitUpdtDesc " + unitUpdtDesc + "  unitUpdtSys  "+ unitUpdtSys);
 
             unitUpdtId.setText(unitList.get(FN_UNITS_PRIMARY_KEY));
             unitUpdtDesc.setText(unitList.get(FN_UNITS_DESCRIPTION));
@@ -64,27 +66,28 @@ public class EditUnit extends Activity{
 
                 HashMap<String, String> unitList = dbTools.getUnitInfo(unitId);
 
-//                unitUpdtDesc.setText(unitList.get(FN_UNITS_DESCRIPTION));
-//                unitUpdtSys.setText(unitList.get(FN_UNITS_SYSTEM));
 
+//    ************ Update DB *************
                 HashMap<String, String> unitUpdtHashMap = new HashMap<String, String>();
-
-    Log.i("editunit id", unitUpdtId.getText().toString());
-    Log.i("editunit desc", unitUpdtDesc.getText().toString());
-    Log.i("editunit sys", unitUpdtSys.getText().toString());
 
                 unitUpdtHashMap.put(FN_UNITS_PRIMARY_KEY, unitUpdtId.getText().toString());
                 unitUpdtHashMap.put(FN_UNITS_DESCRIPTION, unitUpdtDesc.getText().toString());
                 unitUpdtHashMap.put(FN_UNITS_SYSTEM, unitUpdtSys.getText().toString());
 
                 Long updateResults = dbTools.updateUnit(unitUpdtHashMap);
+//    ************ Update DB *************
+
+//    ************ Update ListView *************
+                updateUnitRowLv(unitUpdtHashMap);
+//    ************ Update ListView *************
 
                 Log.i("editunit update", updateResults.toString());
                 Log.i("BEFORE setResult in EditUnit: ", unitId);
 
-//                Intent returnIntent = new Intent();
-//                returnIntent.putExtra("key",unitId);
-                setResult(RESULT_OK);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("key",unitId);
+
+//                setResult(RESULT_OK);
 
                 Log.i("After setResult in EditUnit: ", unitId);
 
@@ -117,6 +120,7 @@ public class EditUnit extends Activity{
 
         dbTools.updateUnit(unitList);
     }
+
 
     public static EditUnit getConfig(){
         return instance;
