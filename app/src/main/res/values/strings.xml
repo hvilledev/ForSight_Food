@@ -24,6 +24,7 @@
     <string name="unitDescHint">Unit Description</string>
     <string name="unitNoteTitleText">Note;\:</string>
     <string name="unitSystemTitleText">System</string>
+    <string name="wandmListTitle">WEIGHTS &amp; MEASURES</string>
 
     <string-array name="dummy_stores_list">
         <item>**one</item>, <item>**two</item>, <item>**three</item>,

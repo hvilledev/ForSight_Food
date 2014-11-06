@@ -37,6 +37,17 @@ public class MyActivity extends Activity implements View.OnClickListener{
 
             }
         });
+        Button wandmButton;
+        wandmButton = (Button) findViewById(R.id.weighs_and_measures_button);
+        wandmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent unitsIntent = new Intent(getApplicationContext(), W_and_M_Manage.class);
+                startActivity(unitsIntent);
+
+            }
+        });
         Button unitsButton;
         unitsButton = (Button) findViewById(R.id.manage_units_button);
         unitsButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +101,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.weighs_and_measures_button:
-                Intent w_and_m_Intent = new Intent(getApplicationContext(), Weights_and_Measures.class);
+                Intent w_and_m_Intent = new Intent(getApplicationContext(), W_and_M_Manage.class);
                 startActivity(w_and_m_Intent);
 
                 break;

@@ -14,7 +14,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "forsight.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     /*
     Items Table details.
      */
@@ -127,29 +127,29 @@ public class SQLite_Control extends SQLiteOpenHelper {
     /*
     Weights and Measures Table details.
      */
-    private static final String W_AND_M_TABLE_NAME = "wandmTable";
+    public static final String W_AND_M_TABLE_NAME = "wandmTable";
 
-    private static final String FN_W_AND_M_PRIMARY_KEY = "_id";
-    private static final int     COL_W_AND_M_PRIMARY_KEY = 0;
-    private static final String  TYPE_W_AND_M_PRIMARY_KEY = "integer primary key autoincrement";
+    public static final String FN_W_AND_M_PRIMARY_KEY = "_id";
+    public static final int     COL_W_AND_M_PRIMARY_KEY = 0;
+    public static final String  TYPE_W_AND_M_PRIMARY_KEY = "integer primary key autoincrement";
 
-    private static final String  FN_W_AND_M_UNIT_A_XREF = "unit_a_xref";
-    private static final int     COL_W_AND_M_UNIT_A_XREF = 1;
-    private static final String  TYPE_W_AND_M_UNIT_A_XREF = "integer";
+    public static final String  FN_W_AND_M_UNIT_A_XREF = "unit_a_xref";
+    public static final int     COL_W_AND_M_UNIT_A_XREF = 1;
+    public static final String  TYPE_W_AND_M_UNIT_A_XREF = "integer";
 
-    private static final String  FN_W_AND_M_UNIT_B_XREF = "unit_b_xref";
-    private static final int     COL_W_AND_M_UNIT_B_XREF = 2;
-    private static final String  TYPE_W_AND_M_UNIT_B_XREF = "integer";
+    public static final String  FN_W_AND_M_UNIT_B_XREF = "unit_b_xref";
+    public static final int     COL_W_AND_M_UNIT_B_XREF = 2;
+    public static final String  TYPE_W_AND_M_UNIT_B_XREF = "integer";
 
-    private static final String  FN_W_AND_M_FACTOR = "factor";
-    private static final int     COL_W_AND_M_FACTOR = 3;
-    private static final String  TYPE_W_AND_M_FACTOR = "real";
+    public static final String  FN_W_AND_M_FACTOR = "factor";
+    public static final int     COL_W_AND_M_FACTOR = 3;
+    public static final String  TYPE_W_AND_M_FACTOR = "real";
 
 
-    private static final String[] W_AND_M_ALL_KEYS = new String[] {FN_W_AND_M_PRIMARY_KEY,
+    public static final String[] W_AND_M_ALL_KEYS = new String[] {FN_W_AND_M_PRIMARY_KEY,
                                                                    FN_W_AND_M_UNIT_A_XREF,
                                                                    FN_W_AND_M_UNIT_B_XREF};
-    private static final String createWandMQuery =
+    public static final String createWandMQuery =
             "CREATE TABLE "
                     + W_AND_M_TABLE_NAME
                     + "("
@@ -249,6 +249,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //        _db.close();
 
         this.initializeUnitTable_Unit(context,_db);
+        this.initializeWandMTable_WandM(context,_db);
 
 
     }
@@ -269,7 +270,9 @@ public class SQLite_Control extends SQLiteOpenHelper {
         onCreate(_db);
     }
 
-
+    
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^ U N I T S ******************************
+    
     public void closeUnit() {
 
 //        _db.close();
@@ -290,24 +293,24 @@ public class SQLite_Control extends SQLiteOpenHelper {
     }
 
     // Delete a row from the database, by rowId (primary key)
-    public boolean deleteRow(long rowId) {
+    public boolean deleteRowUnit(long rowId) {
         String where = FN_UNITS_PRIMARY_KEY + "=" + rowId;
         return _db.delete(UNITS_TABLE_NAME, where, null) != 0;
     }
 
-    public void deleteAll() {
-        Cursor c = getAllRows();
+    public void deleteAllUnits() {
+        Cursor c = getAllRowsUnit();
         long rowId = c.getColumnIndexOrThrow(FN_UNITS_PRIMARY_KEY);
         if (c.moveToFirst()) {
             do {
-                deleteRow(c.getLong((int) rowId));
+                deleteRowUnit(c.getLong((int) rowId));
             } while (c.moveToNext());
         }
         c.close();
     }
 
     // Return all data in the database.
-    public Cursor getAllRows() {
+    public Cursor getAllRowsUnit() {
         String where = null;
         String rawUnitQuery = ("SELECT * FROM " + UNITS_TABLE_NAME + " ORDER BY " + FN_UNITS_DESCRIPTION);
 
@@ -320,7 +323,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
     }
 
     // Get a specific row (by rowId)
-    public Cursor getRow(long rowId) {
+    public Cursor getRowUnit(long rowId) {
         String where = FN_UNITS_PRIMARY_KEY + "=" + rowId;
         Cursor c = 	_db.query(true, UNITS_TABLE_NAME, UNITS_ALL_KEYS,
                 where, null, null, null, null, null);
@@ -332,7 +335,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
     }
 
     // Change an existing row to be equal to new data.
-    public boolean updateRow(long rowId, String name, int studentNum, String favColour) {
+    public boolean updateRowUnit(long rowId, String name, int studentNum, String favColour) {
         String where = FN_UNITS_PRIMARY_KEY + "=" + rowId;
 
         ContentValues newValues = new ContentValues();
@@ -415,7 +418,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 //
     public void unitDelete(String id) {
         _db = this.getWritableDatabase();
-        String deleteQuery = "DELETE FROM " + DATABASE_NAME +
+        String deleteQuery = "DELETE FROM " + UNITS_TABLE_NAME +
                 " WHERE " + FN_UNITS_PRIMARY_KEY + "=' " + id + "'";
         _db.execSQL(deleteQuery);
 
@@ -464,11 +467,8 @@ public class SQLite_Control extends SQLiteOpenHelper {
     }
 //
 //        Read one Unit from database.
-//
-//    public HashMap<String, String> getUnitInfo(String id) {
-    public HashMap<String, String> getUnitInfo(String id) {
+        public HashMap<String, String> getUnitInfo(String id) {
 
-//            Don't need ArrayList<HashMap... like above because only returning 1 Unit.
             HashMap<String, String> unitsMap = new HashMap<String, String>();
 
             _db = this.getReadableDatabase();
@@ -497,6 +497,250 @@ public class SQLite_Control extends SQLiteOpenHelper {
             return unitsMap;
 
         }
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^ U N I T S ******************************
+
+
+//^^^^^^^^^^^^^^^^^W E I G H T S AND M E A S U R E S********************
+
+
+    public void closeWandM() {
+
+//        _db.close();
+    }
+
+
+    // Add a new set of values to the database.
+    public long insertRowWandM(String unitA, String unitB, String factor) {
+
+
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(FN_W_AND_M_UNIT_A_XREF, unitA);
+        initialValues.put(FN_W_AND_M_UNIT_B_XREF, unitB);
+        initialValues.put(FN_W_AND_M_FACTOR, factor);
+
+        // Insert it into the database.
+        return _db.insert(W_AND_M_TABLE_NAME, null, initialValues);
+    }
+
+    // Delete a row from the database, by rowId (primary key)
+    public boolean deleteRowWandM(long rowId) {
+        String where = FN_W_AND_M_PRIMARY_KEY + "=" + rowId;
+        return _db.delete(W_AND_M_TABLE_NAME, where, null) != 0;
+    }
+
+    public void deleteAllWandM() {
+        Cursor c = getAllRowsWandM();
+        long rowId = c.getColumnIndexOrThrow(FN_W_AND_M_PRIMARY_KEY);
+        if (c.moveToFirst()) {
+            do {
+                deleteRowWandM(c.getLong((int) rowId));
+            } while (c.moveToNext());
+        }
+        c.close();
+    }
+
+    // Return all data in the database.
+    public Cursor getAllRowsWandM() {
+        String where = null;
+        String rawWandMQuery = ("SELECT * FROM " + W_AND_M_TABLE_NAME + " ORDER BY " + FN_W_AND_M_UNIT_A_XREF);
+
+        Cursor c = 	_db.rawQuery(rawWandMQuery, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        c.close();
+        return c;
+    }
+
+    // Get a specific row (by rowId)
+    public Cursor getRowWandM(long rowId) {
+        String where = FN_W_AND_M_PRIMARY_KEY + "=" + rowId;
+        Cursor c = 	_db.query(true, W_AND_M_TABLE_NAME, W_AND_M_ALL_KEYS,
+                where, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        c.close();
+        return c;
+    }
+
+    // Change an existing row to be equal to new data.
+    public boolean updateRowWandM(long rowId, String unitA, String unitB, String factor) {
+        String where = FN_W_AND_M_PRIMARY_KEY + "=" + rowId;
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(FN_W_AND_M_UNIT_A_XREF, unitA);
+        newValues.put(FN_W_AND_M_UNIT_B_XREF, unitB);
+        newValues.put(FN_W_AND_M_FACTOR, factor);
+
+        // Insert it into the database.
+        return _db.update(FN_W_AND_M_PRIMARY_KEY, newValues, where, null) != 0;
+    }
+
+
+
+    public void initializeWandMTable_WandM(Context ctx,SQLiteDatabase _db) {
+
+        String[] wandmCol1, wandmCol2, wandmCol3;
+
+        wandmCol1 = ctx.getResources().getStringArray(R.array.wandmCol1);
+        wandmCol2 = ctx.getResources().getStringArray(R.array.wandmCol2);
+        wandmCol3 = ctx.getResources().getStringArray(R.array.wandmCol3);
+
+        int i;
+        for (i = 0; i<wandmCol1.length; i++) {
+
+            Log.i("wandm for:", "Inserting "+ wandmCol1[i] + "  " + wandmCol2[i] + "  " + wandmCol3[i]);
+
+            HashMap<String, String> hm = new HashMap<String, String>();
+
+            hm.put(FN_W_AND_M_UNIT_A_XREF, wandmCol1[i]);
+            hm.put(FN_W_AND_M_UNIT_B_XREF, wandmCol2[i]);
+            hm.put(FN_W_AND_M_FACTOR, wandmCol3[i]);
+
+            insertWandM(_db,hm);
+
+        }
+    }
+
+    //
+//        Insert a WandM.
+//
+    public void insertWandM(SQLiteDatabase _db, HashMap<String, String> wandmQueryValues) {
+
+        ContentValues values = new ContentValues();
+
+//            _db = this.getWritableDatabase();
+
+        values.put(FN_W_AND_M_UNIT_A_XREF, wandmQueryValues.get(FN_W_AND_M_UNIT_A_XREF));
+        values.put(FN_W_AND_M_UNIT_B_XREF, wandmQueryValues.get(FN_W_AND_M_UNIT_B_XREF));
+        values.put(FN_W_AND_M_FACTOR, wandmQueryValues.get(FN_W_AND_M_FACTOR));
+
+        _db.insert(W_AND_M_TABLE_NAME, null, values);
+
+//            _db.close();
+    }
+
+    //
+//        Update a WandM.
+//
+    public long updateWandM(HashMap<String, String> wandmQueryValues) {
+
+        ContentValues values = new ContentValues();
+
+        _db = this.getWritableDatabase();
+
+
+        values.put(FN_W_AND_M_PRIMARY_KEY, wandmQueryValues.get(FN_W_AND_M_PRIMARY_KEY));
+        values.put(FN_W_AND_M_UNIT_A_XREF, wandmQueryValues.get(FN_W_AND_M_UNIT_A_XREF));
+        values.put(FN_W_AND_M_UNIT_B_XREF, wandmQueryValues.get(FN_W_AND_M_UNIT_B_XREF));
+        values.put(FN_W_AND_M_FACTOR, wandmQueryValues.get(FN_W_AND_M_FACTOR));
+
+        Log.i("wandm updateWandM:", DATABASE_NAME +", values, " +
+                FN_W_AND_M_PRIMARY_KEY + " = ?,  new String[]{wandmQueryValues.get(FN_W_AND_M_UNIT_A_XREF,FN_W_AND_M_UNIT_B_XREF)");
+
+        long updateResults =  _db.update(W_AND_M_TABLE_NAME, values,
+                FN_W_AND_M_PRIMARY_KEY + " = ?",
+                new String[]{wandmQueryValues.get(FN_W_AND_M_PRIMARY_KEY)});
+
+//            _db.close();
+
+        return updateResults;
+
+    }
+    //
+//        Delete a WandM.
+//
+    public void wandmDelete(String id) {
+        _db = this.getWritableDatabase();
+        String deleteQuery = "DELETE FROM " + W_AND_M_TABLE_NAME +
+                " WHERE " + FN_W_AND_M_PRIMARY_KEY + "=' " + id + "'";
+        _db.execSQL(deleteQuery);
+
+//            _db.close();
+
+    }
+
+
+    //
+//        Read All WandM from DB.
+//
+    public  ArrayList<HashMap<String, String>> getAllWandM() {
+
+        ArrayList<HashMap<String, String>> wandmArrayList = new ArrayList<HashMap<String, String>>();
+
+//            String selectQuery = "SELECT * FROM " + W_AND_M_TABLE_NAME +" ORDER BY " + FN_W_AND_M_UNIT_A_XREF;
+        String selectQuery = "SELECT * FROM " + W_AND_M_TABLE_NAME;
+
+        SQLiteDatabase gaDatabase = this.getReadableDatabase();
+
+//            _db = this.getWritableDatabase();
+
+        Cursor cursor = gaDatabase.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                HashMap<String, String> wandmMap = new HashMap<String, String>();
+
+                wandmMap.put(FN_W_AND_M_PRIMARY_KEY, cursor.getString(COL_W_AND_M_PRIMARY_KEY));
+                wandmMap.put(FN_W_AND_M_UNIT_A_XREF, cursor.getString(COL_W_AND_M_UNIT_A_XREF));
+                wandmMap.put(FN_W_AND_M_UNIT_B_XREF, cursor.getString(COL_W_AND_M_UNIT_B_XREF));
+                wandmMap.put(FN_W_AND_M_FACTOR, cursor.getString(COL_W_AND_M_FACTOR));
+
+                wandmArrayList.add(wandmMap);
+
+
+            } while (cursor.moveToNext());
+
+        }
+
+        cursor.close();
+
+        return wandmArrayList;
+
+    }
+    //
+//        Read one WandM from database.
+    public HashMap<String, String> getWandMInfo(String id) {
+
+        HashMap<String, String> wandmMap = new HashMap<String, String>();
+
+        _db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + W_AND_M_TABLE_NAME
+                + " WHERE " + FN_W_AND_M_PRIMARY_KEY + " = '" + id + "'";
+
+        Cursor cursor = _db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                wandmMap.put(FN_W_AND_M_PRIMARY_KEY, cursor.getString(COL_W_AND_M_PRIMARY_KEY));
+                wandmMap.put(FN_W_AND_M_UNIT_A_XREF, cursor.getString(COL_W_AND_M_UNIT_A_XREF));
+                wandmMap.put(FN_W_AND_M_UNIT_B_XREF, cursor.getString(COL_W_AND_M_UNIT_B_XREF));
+                wandmMap.put(FN_W_AND_M_FACTOR, cursor.getString(COL_W_AND_M_FACTOR));
+
+
+            } while (cursor.moveToNext());
+
+
+        }
+
+        cursor.close();
+
+        return wandmMap;
+
+    }
+
+
+
+//^^^^^^^^^^^^^^^^^W E I G H T S AND M E A S U R E S********************
+
 
 
 }
