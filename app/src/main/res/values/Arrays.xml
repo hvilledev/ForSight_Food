@@ -2,7 +2,7 @@
 <resources>
     
     <!--Units Table initial data-->
-    
+    <!--todo  add the funky units like Cup-US rice, see the conversion table for details-->
     <string-array name="unitsCol1">
         <item>Liter</item>
         <item>Milliliter</item>
@@ -10,8 +10,8 @@
         <item>Gram</item>
         <item>Cup-US</item>
         <item>Cup-UK</item>
-        <item>Quart</item>
-        <item>Pint</item>
+        <item>Quart-US</item>
+        <item>Pint-US</item>
         <item>Gallon-US</item>
         <item>Ounce-US</item>
         <item>Fluid Ounce-US</item>
@@ -22,6 +22,7 @@
         <item>Fluid Ounce-UK</item>
         <item>Tablespoon-UK</item>
         <item>Teaspoon-UK</item>
+        <item>Pound</item>
 
     </string-array>
     <string-array name="unitsCol2">
@@ -29,6 +30,7 @@
         <item>m</item>
         <item>m</item>
         <item>m</item>
+        <item>i</item>
         <item>i</item>
         <item>i</item>
         <item>i</item>
@@ -60,7 +62,7 @@
         <item>Cup-US</item>
         <item>Cup-US</item>
         <item>Cup-US</item>
-        <item>Pint</item>
+        <item>Pint-US</item>
         <item>Gallon-US</item>
         <item>Kilogram</item>
         <item>Kilogram</item>

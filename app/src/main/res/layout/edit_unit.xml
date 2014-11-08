@@ -111,7 +111,7 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="EDIT" />
+            android:text="SAVE" />
 
         <Button
             android:id="@+id/deleteButton"

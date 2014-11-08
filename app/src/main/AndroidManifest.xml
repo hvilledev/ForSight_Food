@@ -22,6 +22,7 @@
         <activity android:name=".Manage_Items"></activity>
         <activity android:name=".Manage_Units"></activity>
         <activity android:name=".W_and_M_Manage"></activity>
+        <activity android:name=".W_and_M_Convert"></activity>
         <activity android:name=".W_and_M_Edit"></activity>
     </application>
 

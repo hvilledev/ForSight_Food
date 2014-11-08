@@ -15,7 +15,7 @@ package ca.hvilledev.www.forsightfood;
 
         import java.util.HashMap;
 
-        import static ca.hvilledev.www.forsightfood.W_and_M_Manage.updateWandMRowLv;
+        import static ca.hvilledev.www.forsightfood.W_and_M_Manage.updateUnitRowLv;
         import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_PRIMARY_KEY;
         import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_UNIT_A_XREF;
         import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_UNIT_B_XREF;
@@ -85,7 +85,7 @@ public class W_and_M_Edit extends Activity{
 //    ************ Update DB *************
 
 //    ************ Update ListView *************
-                updateWandMRowLv(w_and_mUpdtHashMap);
+                updateUnitRowLv(w_and_mUpdtHashMap);
 //    ************ Update ListView *************
 
                 Log.i("editw_and_m update", updateResults.toString());

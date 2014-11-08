@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "forsight.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
     /*
     Items Table details.
      */
@@ -453,6 +454,11 @@ public class SQLite_Control extends SQLiteOpenHelper {
                 unitsMap.put(FN_UNITS_DESCRIPTION, cursor.getString(COL_UNITS_DESCRIPTION));
                 unitsMap.put(FN_UNITS_SYSTEM, cursor.getString(COL_UNITS_SYSTEM));
 
+                Log.i("getUnits ************ KEY: ", cursor.getString(COL_UNITS_PRIMARY_KEY)
+                                + "  A: " + cursor.getString(COL_W_AND_M_UNIT_A_XREF)
+                                + "  B: " + cursor.getString(COL_W_AND_M_UNIT_B_XREF)
+                );
+
                 unitsArrayList.add(unitsMap);
 
 
@@ -693,6 +699,11 @@ public class SQLite_Control extends SQLiteOpenHelper {
 
                 wandmArrayList.add(wandmMap);
 
+                Log.i("getAllWandM ************ KEY: ",cursor.getString(COL_W_AND_M_PRIMARY_KEY)
+                                + "  A: " + cursor.getString(COL_W_AND_M_UNIT_A_XREF)
+                                + "  B: " + cursor.getString(COL_W_AND_M_UNIT_B_XREF)
+                                + "  FACTOR: " + cursor.getString(COL_W_AND_M_FACTOR)
+                                );
 
             } while (cursor.moveToNext());
 
@@ -729,6 +740,100 @@ public class SQLite_Control extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
 
 
+        }
+
+        cursor.close();
+
+        return wandmMap;
+
+    }
+
+    //        Get record given 2 Units.
+    public HashMap<String, String> getWandMFactor(String unitDesc1,String unitDesc2) {
+
+        HashMap<String, String> wandmMap = new HashMap<String, String>();
+
+        _db = this.getReadableDatabase();
+
+
+        //  Get the Id for unitDesc1
+        String selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME
+                + " WHERE " + FN_UNITS_DESCRIPTION + " = '" + unitDesc1 + "'";
+
+        Cursor cursor = _db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            wandmMap.put("unit1Id", cursor.getString(COL_W_AND_M_PRIMARY_KEY));
+
+        }else {
+            Toast.makeText(context, "ERROR : Missing " + unitDesc1.toString() + " in " + UNITS_TABLE_NAME.toString() ,Toast.LENGTH_LONG).show();
+            wandmMap.put(FN_W_AND_M_FACTOR, "0");
+            return wandmMap;
+        }
+
+        //  Get the Id for unitDesc
+        selectQuery = "SELECT * FROM " + UNITS_TABLE_NAME
+                + " WHERE " + FN_UNITS_DESCRIPTION + " = '" + unitDesc2 + "'";
+
+        cursor = _db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            wandmMap.put("unit2Id", cursor.getString(COL_W_AND_M_PRIMARY_KEY));
+
+        }else {
+            Toast.makeText(context, "ERROR : Missing " + unitDesc2.toString() + " in " + UNITS_TABLE_NAME.toString() ,Toast.LENGTH_LONG).show();
+            wandmMap.put(FN_W_AND_M_FACTOR, "0");
+            return wandmMap;
+        }
+//Can't us this until change w and m to us id not desc
+        /*
+        selectQuery = "SELECT * FROM " + W_AND_M_TABLE_NAME
+                                    + " WHERE "
+                                    + FN_W_AND_M_UNIT_A_XREF + " = " + wandmMap.get("unit1Id").toString()
+                                    + " AND "
+                                    + FN_W_AND_M_UNIT_B_XREF + " = " + wandmMap.get("unit2Id").toString()
+                                    + "'";
+*/
+        selectQuery = "SELECT * FROM " + W_AND_M_TABLE_NAME
+                + " WHERE "
+                + FN_W_AND_M_UNIT_A_XREF + " = '" + unitDesc1
+                + "' AND "
+                + FN_W_AND_M_UNIT_B_XREF + " = '" + unitDesc2
+                + "'";
+        cursor = _db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            wandmMap.put("factor", cursor.getString(COL_W_AND_M_FACTOR));
+
+        }else {
+            //   Look for unit2Id/unit1Id
+/*            selectQuery = "SELECT * FROM " + W_AND_M_TABLE_NAME
+                    + " WHERE "
+                    + FN_W_AND_M_UNIT_A_XREF + " = " + wandmMap.get("unit2Id").toString()
+                    + " AND "
+                    + FN_W_AND_M_UNIT_B_XREF + " = " + wandmMap.get("unit1Id").toString()
+                    + "'";
+                    */
+
+            selectQuery = "SELECT * FROM " + W_AND_M_TABLE_NAME
+                    + " WHERE "
+                    + FN_W_AND_M_UNIT_A_XREF + " = '" + unitDesc2
+                    + "' AND "
+                    + FN_W_AND_M_UNIT_B_XREF + " = '" + unitDesc1
+                    + "'";
+
+            cursor = _db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                Double factorD = Double.parseDouble(cursor.getString(COL_W_AND_M_FACTOR));
+                factorD = 1/factorD;
+
+                wandmMap.put("factor", factorD.toString());
+            }else {
+                wandmMap.put("factor", "0");
+                Toast.makeText(context,"The conversion for " + unitDesc1 +" to "+ unitDesc2
+                                            + " does not exist.",Toast.LENGTH_LONG).show();
+
+            }
         }
 
         cursor.close();
