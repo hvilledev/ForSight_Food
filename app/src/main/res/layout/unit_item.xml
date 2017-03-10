@@ -27,7 +27,7 @@
         android:textColor="#444444"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:text="I"
+        android:text="@string/i"
         android:gravity="center_horizontal" />
 
 </TableRow>

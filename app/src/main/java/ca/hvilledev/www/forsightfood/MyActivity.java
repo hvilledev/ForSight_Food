@@ -14,17 +14,12 @@ public class MyActivity extends Activity implements View.OnClickListener{
     private static final String DATABASE_NAME = "forsight.db";
 
 
-
-    SQLite_Control sqldb;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        sqldb = new SQLite_Control(getApplicationContext());
+        SQLite_Control sqldb = new SQLite_Control(getApplicationContext());
 
         Button storesButton;
         storesButton = (Button) findViewById(R.id.whats_in_stores_button);
@@ -76,10 +71,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
 

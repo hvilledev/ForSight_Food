@@ -8,10 +8,10 @@ import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_FACTOR;
 /**
  * Created by miked on 05/11/14.
  */
-public class W_and_MViewWrapper {
-    public String key;
-    public String description;
-    public String system;
+class W_and_MViewWrapper {
+    private String key;
+    private String description;
+    private String system;
 
 
     public W_and_MViewWrapper()
@@ -22,7 +22,7 @@ public class W_and_MViewWrapper {
                 FN_W_AND_M_FACTOR);
     }
 
-    public W_and_MViewWrapper(String key, String unitAXref, String unitBXref, String factor)
+    private W_and_MViewWrapper(String key, String unitAXref, String unitBXref, String factor)
     {
         super();
 

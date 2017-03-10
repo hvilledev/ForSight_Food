@@ -1,9 +1,9 @@
 package ca.hvilledev.www.forsightfood;
 
 
-public class W_and_M_SpinnerViewWrapper {
+class W_and_M_SpinnerViewWrapper {
 
-    public String unitId,unitDesc;
+    private String unitId,unitDesc;
 
 
     public W_and_M_SpinnerViewWrapper()
@@ -11,7 +11,7 @@ public class W_and_M_SpinnerViewWrapper {
         this("unitId", "unitDesc");
     }
 
-    public W_and_M_SpinnerViewWrapper(String unitId, String unitDesc)
+    private W_and_M_SpinnerViewWrapper(String unitId, String unitDesc)
     {
         super();
 

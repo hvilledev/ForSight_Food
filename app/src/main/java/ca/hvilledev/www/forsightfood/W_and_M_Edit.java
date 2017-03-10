@@ -15,7 +15,7 @@ package ca.hvilledev.www.forsightfood;
 
         import java.util.HashMap;
 
-        import static ca.hvilledev.www.forsightfood.W_and_M_Manage.updateUnitRowLv;
+      //  import static ca.hvilledev.www.forsightfood.W_and_M_Manage.updateUnitRowLv;
         import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_PRIMARY_KEY;
         import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_UNIT_A_XREF;
         import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_UNIT_B_XREF;
@@ -23,10 +23,10 @@ package ca.hvilledev.www.forsightfood;
 
 public class W_and_M_Edit extends Activity{
 
-    EditText w_and_mUpdtId,w_and_mUpdtUAX, w_and_mUpdtUBX,w_and_mUpdtFactor;
-    public static EditUnit instance;
+    private EditText w_and_mUpdtId,w_and_mUpdtUAX, w_and_mUpdtUBX,w_and_mUpdtFactor;
+    private EditUnit instance;
 
-    SQLite_Control dbTools = new SQLite_Control(this);
+    private SQLite_Control dbTools = new SQLite_Control(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class W_and_M_Edit extends Activity{
 
         if(w_and_mList.size() != 0){
 
-            Log.i("************EditUnit if :","wmkey "+ FN_W_AND_M_PRIMARY_KEY + " wmAx " + FN_W_AND_M_UNIT_A_XREF + "  uBx  " + FN_W_AND_M_UNIT_B_XREF+ "  uBx  " +  FN_W_AND_M_FACTOR);
+            Log.i("W_and_M_Edit  49 ","wmkey "+ FN_W_AND_M_PRIMARY_KEY + " wmAx " + FN_W_AND_M_UNIT_A_XREF + "  uBx  " + FN_W_AND_M_UNIT_B_XREF+ "  uBx  " +  FN_W_AND_M_FACTOR);
 
             w_and_mUpdtId.setText(w_and_mList.get(FN_W_AND_M_PRIMARY_KEY));
             w_and_mUpdtUAX.setText(w_and_mList.get(FN_W_AND_M_UNIT_A_XREF));
@@ -85,18 +85,18 @@ public class W_and_M_Edit extends Activity{
 //    ************ Update DB *************
 
 //    ************ Update ListView *************
-                updateUnitRowLv(w_and_mUpdtHashMap);
+                ca.hvilledev.www.forsightfood.W_and_M_Manage.updateUnitRowLv(w_and_mUpdtHashMap);
 //    ************ Update ListView *************
 
-                Log.i("editw_and_m update", updateResults.toString());
-                Log.i("BEFORE setResult in 'W_and_M_Edit: ", w_and_mId);
+                Log.i("W_and_M_Edit 91", updateResults.toString());
+                Log.i("W_and_M_Edit  92 ", w_and_mId);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("key",w_and_mId);
 
 //                setResult(RESULT_OK);
 
-                Log.i("After setResult in EditUnit: ", w_and_mId);
+                Log.i("W_and_M_Edit  99 ", w_and_mId);
 
                 finish();
             }
@@ -106,7 +106,7 @@ public class W_and_M_Edit extends Activity{
             @Override
             public void onClick(View view) {
 
-                Log.i("w_and_m delete", "***********************");
+                Log.i("W_and_M_Edit  109", "***********************");
 
             }
         });
@@ -131,7 +131,7 @@ public class W_and_M_Edit extends Activity{
     }
 
 
-    public static EditUnit getConfig(){
+    public  EditUnit getConfig(){
         return instance;
     }
 }

@@ -3,9 +3,9 @@ package ca.hvilledev.www.forsightfood;
 /**
  * Created by miked on 05/11/14.
  */
-public class W_and_M {
-    String description, system;
-    Integer _id;
+class W_and_M {
+    private String description, system;
+    private Integer _id;
 
     public W_and_M(){
 

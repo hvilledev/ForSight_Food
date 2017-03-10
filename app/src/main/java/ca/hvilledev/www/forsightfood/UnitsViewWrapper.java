@@ -1,21 +1,14 @@
 package ca.hvilledev.www.forsightfood;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.lang.ref.SoftReference;
-
-import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_DESCRIPTION;
+import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
 
-public class UnitsViewWrapper {
+class UnitsViewWrapper {
 
-    public String key;
-    public String description;
-    public String system;
+    private String key;
+    private String description;
+    private String system;
 
 
     public UnitsViewWrapper()
@@ -23,7 +16,7 @@ public class UnitsViewWrapper {
         this(FN_UNITS_PRIMARY_KEY,FN_UNITS_DESCRIPTION, FN_UNITS_SYSTEM);
     }
 
-    public UnitsViewWrapper(String key, String description, String system)
+    private UnitsViewWrapper(String key, String description, String system)
     {
         super();
 

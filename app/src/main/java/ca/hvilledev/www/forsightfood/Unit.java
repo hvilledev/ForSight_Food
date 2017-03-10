@@ -1,9 +1,8 @@
 package ca.hvilledev.www.forsightfood;
 
-public class Unit {
-
-    String description, system;
-    Integer _id;
+class Unit {
+    private String description, system;
+    private Integer _id;
 
     public Unit(){
 

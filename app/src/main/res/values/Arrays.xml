@@ -2,8 +2,9 @@
 <resources>
     
     <!--Units Table initial data-->
-    <!--todo  add the funky units like Cup-US rice, see the conversion table for details-->
+    <!--todo  add the funky units like Cup-US rice, see the conversion table for details.-->
     <string-array name="unitsCol1">
+        <item>Stone</item>
         <item>Liter</item>
         <item>Milliliter</item>
         <item>Kilogram</item>
@@ -23,9 +24,37 @@
         <item>Tablespoon-UK</item>
         <item>Teaspoon-UK</item>
         <item>Pound</item>
+        <item>Cup-US White Flour</item>
+        <item>Cup-US Packed Brown Suger</item>
+        <item>Cup-US Butter</item>
+        <item>Cup-US Bread Flour</item>
+        <item>Cup-US Rolled Oats</item>
+        <item>Cup-US White Suger</item>
+        <item>Cup-US Honey</item>
+        <item>Cup-US Molasses</item>
+        <item>Cup-US Syrup</item>
+        <item>Cup-US All Purpose Flour</item>
+        <item>Cup-US Walnuts Chopped</item>
+        <item>Cup-US Coconut Shredded</item>
+        <item>Cup-US Chocolate Chips</item>
+        <item>Large Egg</item>
+        <item>Egg Yoke</item>
+        <item>Cup-US Cream Cheese</item>
+        <item>Cup-US Heavy Cream</item>
+        <item>Cup-US Sour Cream</item>
+        <item>Cup-US Yogurt</item>
+        <item>Cup-US Icing Sugar</item>
+        <item>Cup-US Cocoa</item>
+        <item>Cup-US Cornstarch</item>
+        <item>Teaspoon Baking Powder</item>
+        <item>Teaspoon Baking Soda</item>
+        <item>Teaspoon Salt</item>
+        <item>Cup-US Milk</item>
+        <item>Egg White</item>
 
     </string-array>
     <string-array name="unitsCol2">
+        <item>i</item>
         <item>m</item>
         <item>m</item>
         <item>m</item>
@@ -45,11 +74,39 @@
         <item>i</item>
         <item>i</item>
         <item>i</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
+        <item>C</item>
 
     </string-array>
 
     <string-array name="wandmCol1">
-<item>Liter</item>
+        <item>Stone</item>
+        <item>Liter</item>
         <item>Liter</item>
         <item>Liter</item>
         <item>Liter</item>
@@ -96,10 +153,12 @@
         <item>Cup-US Milk</item>
         <item>Egg White</item>
 
+
     </string-array>
 
 
     <string-array name="wandmCol2">
+        <item>Pound</item>
         <item>Milliliter</item>
         <item>Gallon-US</item>
         <item>Quart-US</item>
@@ -117,8 +176,8 @@
         <item>Quart-US</item>
         <item>Gram</item>
         <item>Pound</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
         <item>Gram</item>
         <item>Gram</item>
         <item>Gram</item>
@@ -128,16 +187,16 @@
         <item>Gram</item>
         <item>Gram</item>
         <item>Gram</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
-        <item>Ounce</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
+        <item>Ounce-US</item>
         <item>Gram</item>
         <item>Gram</item>
         <item>Gram</item>
@@ -146,11 +205,13 @@
         <item>Gram</item>
         <item>Gram</item>
         <item>Gram</item>
+
 
     </string-array>
 
 
     <string-array name="wandmCol3">
+        <item>14</item>
         <item>1000</item>
         <item>.2642</item>
         <item>1.057</item>
@@ -199,5 +260,59 @@
         <item>30</item>
 
     </string-array>
+
+    <string-array  name="conversions">
+        <record unitsCol1="Stone" unitsCol2="m" wandmCol1="Stone" wandmCol2="Pound"  wandmCol3="14" />
+        <record unitsCol1="Liter" unitsCol2="m" wandmCol1="Liter" wandmCol2="Milliliter"  wandmCol3="1000" />
+        <record unitsCol1="Milliliter" unitsCol2="m" wandmCol1="Liter" wandmCol2="Gallon-US"  wandmCol3="0.2642" />
+        <record unitsCol1="Kilogram" unitsCol2="m" wandmCol1="Liter" wandmCol2="Quart-US"  wandmCol3="1.057" />
+        <record unitsCol1="Gram" unitsCol2="i" wandmCol1="Liter" wandmCol2="Pint-US"  wandmCol3="2.114" />
+        <record unitsCol1="Cup-US" unitsCol2="i" wandmCol1="Liter" wandmCol2="Teaspoon-US"  wandmCol3="202.9" />
+        <record unitsCol1="Cup-UK" unitsCol2="i" wandmCol1="Liter" wandmCol2="Tablespoon-US"  wandmCol3="67.63" />
+        <record unitsCol1="Quart-US" unitsCol2="i" wandmCol1="Liter" wandmCol2="Cup-US"  wandmCol3="4.227" />
+        <record unitsCol1="Pint-US" unitsCol2="i" wandmCol1="Liter" wandmCol2="Teaspoon-UK"  wandmCol3="200" />
+        <record unitsCol1="Gallon-US" unitsCol2="i" wandmCol1="Liter" wandmCol2="Tablespoon-UK"  wandmCol3="66.67" />
+        <record unitsCol1="Ounce-US" unitsCol2="i" wandmCol1="Liter" wandmCol2="Cup-UK"  wandmCol3="4.167" />
+        <record unitsCol1="Fluid Ounce-US" unitsCol2="i" wandmCol1="Cup-US" wandmCol2="Tablespoon-US"  wandmCol3="16" />
+        <record unitsCol1="Tablespoon-US" unitsCol2="i" wandmCol1="Cup-US" wandmCol2="Teaspoon-US"  wandmCol3="48" />
+        <record unitsCol1="Teaspoon-US" unitsCol2="i" wandmCol1="Cup-US" wandmCol2="Pint-US"  wandmCol3="0.4297" />
+        <record unitsCol1="Gallon-UK" unitsCol2="i" wandmCol1="Pint-US" wandmCol2="Quart-US"  wandmCol3="0.5" />
+        <record unitsCol1="Ounce-UK" unitsCol2="i" wandmCol1="Gallon-US" wandmCol2="Quart-US"  wandmCol3="4" />
+        <record unitsCol1="Fluid Ounce-UK" unitsCol2="i" wandmCol1="Kilogram" wandmCol2="Gram"  wandmCol3="1000" />
+        <record unitsCol1="Tablespoon-UK" unitsCol2="i" wandmCol1="Kilogram" wandmCol2="Pound"  wandmCol3="2.205" />
+        <record unitsCol1="Teaspoon-UK" unitsCol2="i" wandmCol1="Kilogram" wandmCol2="Ounce-US"  wandmCol3="35.27" />
+        <record unitsCol1="Pound" unitsCol2="C" wandmCol1="Pound" wandmCol2="Ounce-US"  wandmCol3="16" />
+        <record unitsCol1="Cup-US White Flour" unitsCol2="C" wandmCol1="Cup-US White Flour" wandmCol2="Gram"  wandmCol3="128" />
+        <record unitsCol1="Cup-US Packed Brown Suger" unitsCol2="C" wandmCol1="Cup-US Packed Brown Suger" wandmCol2="Gram"  wandmCol3="215" />
+        <record unitsCol1="Cup-US Butter" unitsCol2="C" wandmCol1="Cup-US Butter" wandmCol2="Gram"  wandmCol3="277" />
+        <record unitsCol1="Cup-US Bread Flour" unitsCol2="C" wandmCol1="Cup-US Bread Flour" wandmCol2="Gram"  wandmCol3="136" />
+        <record unitsCol1="Cup-US Rolled Oats" unitsCol2="C" wandmCol1="Cup-US Rolled Oats" wandmCol2="Gram"  wandmCol3="85" />
+        <record unitsCol1="Cup-US White Suger" unitsCol2="C" wandmCol1="Cup-US White Suger" wandmCol2="Gram"  wandmCol3="201" />
+        <record unitsCol1="Cup-US Honey" unitsCol2="C" wandmCol1="Cup-US Honey" wandmCol2="Gram"  wandmCol3="340" />
+        <record unitsCol1="Cup-US Molasses" unitsCol2="C" wandmCol1="Cup-US Molasses" wandmCol2="Gram"  wandmCol3="340" />
+        <record unitsCol1="Cup-US Syrup" unitsCol2="C" wandmCol1="Cup-US Syrup" wandmCol2="Gram"  wandmCol3="340" />
+        <record unitsCol1="Cup-US All Purpose Flour" unitsCol2="C" wandmCol1="Cup-US All Purpose Flour" wandmCol2="Ounce-US"  wandmCol3="4.5" />
+        <record unitsCol1="Cup-US Walnuts Chopped" unitsCol2="C" wandmCol1="Cup-US Walnuts Chopped" wandmCol2="Ounce-US"  wandmCol3="4.3" />
+        <record unitsCol1="Cup-US Coconut Shredded" unitsCol2="C" wandmCol1="Cup-US Coconut Shredded" wandmCol2="Ounce-US"  wandmCol3="2.5" />
+        <record unitsCol1="Cup-US Chocolate Chips" unitsCol2="C" wandmCol1="Cup-US Chocolate Chips" wandmCol2="Ounce-US"  wandmCol3="5.35" />
+        <record unitsCol1="Large Egg" unitsCol2="C" wandmCol1="Large Egg" wandmCol2="Ounce-US"  wandmCol3="1.75" />
+        <record unitsCol1="Egg Yoke" unitsCol2="C" wandmCol1="Egg Yoke" wandmCol2="Ounce-US"  wandmCol3="0.7" />
+        <record unitsCol1="Cup-US Cream Cheese" unitsCol2="C" wandmCol1="Cup-US Cream Cheese" wandmCol2="Ounce-US"  wandmCol3="8.2" />
+        <record unitsCol1="Cup-US Heavy Cream" unitsCol2="C" wandmCol1="Cup-US Heavy Cream" wandmCol2="Ounce-US"  wandmCol3="8.4" />
+        <record unitsCol1="Cup-US Sour Cream" unitsCol2="C" wandmCol1="Cup-US Sour Cream" wandmCol2="Ounce-US"  wandmCol3="8.6" />
+        <record unitsCol1="Cup-US Yogurt" unitsCol2="C" wandmCol1="Cup-US Yogurt" wandmCol2="Ounce-US"  wandmCol3="8.6" />
+        <record unitsCol1="Cup-US Icing Sugar" unitsCol2="C" wandmCol1="Cup-US Icing Sugar" wandmCol2="Gram"  wandmCol3="225" />
+        <record unitsCol1="Cup-US Cocoa" unitsCol2="C" wandmCol1="Cup-US Cocoa" wandmCol2="Gram"  wandmCol3="105" />
+        <record unitsCol1="Cup-US Cornstarch" unitsCol2="C" wandmCol1="Cup-US Cornstarch" wandmCol2="Gram"  wandmCol3="125" />
+        <record unitsCol1="Teaspoon Baking Powder" unitsCol2="C" wandmCol1="Teaspoon Baking Powder" wandmCol2="Gram"  wandmCol3="4" />
+        <record unitsCol1="Teaspoon Baking Soda" unitsCol2="C" wandmCol1="Teaspoon Baking Soda" wandmCol2="Gram"  wandmCol3="8" />
+        <record unitsCol1="Teaspoon Salt" unitsCol2="C" wandmCol1="Teaspoon Salt" wandmCol2="Gram"  wandmCol3="8" />
+        <record unitsCol1="Cup-US Milk" unitsCol2="C" wandmCol1="Cup-US Milk" wandmCol2="Gram"  wandmCol3="245" />
+        <record unitsCol1="Egg White" unitsCol2="i" wandmCol1="Egg White" wandmCol2="Gram"  wandmCol3="30" />
+
+
+    </string-array>
+
+
 
 </resources>

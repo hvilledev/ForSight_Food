@@ -2,7 +2,6 @@ package ca.hvilledev.www.forsightfood;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,7 +23,7 @@ public class Stores extends ListActivity {
         "one", "two", "three",
         "four"};
 */
-    String[] storesList;
+private String[] storesList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

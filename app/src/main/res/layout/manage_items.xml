@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/manageItemsTitleText"
-        android:id="@+id/textView" />
+        android:id="@+id/wandmtextView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,10 +16,11 @@
         android:text="@string/descriptionText"
         android:id="@+id/textView2"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/wandmtextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="false" />
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:background="#162700ff" />
+        android:background="#162700ff"
+        android:layout_alignParentRight="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +53,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:background="#162700ff"/>
+        android:background="#162700ff"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,7 +75,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:background="#162700ff"/>
+        android:background="#162700ff"
+        android:layout_alignParentRight="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +102,8 @@
             android:layout_marginStart="18dp"
             android:checked="false"
             android:background="#162700ff"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -108,7 +113,8 @@
             android:layout_marginStart="18dp"
             android:checked="false"
             android:background="#162700ff"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -118,7 +124,8 @@
             android:layout_marginStart="18dp"
             android:checked="false"
             android:background="#162700ff"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp" />
 
     </LinearLayout>
 
@@ -145,7 +152,8 @@
             android:ems="10"
             android:id="@+id/editText2"
             android:layout_marginLeft="20dp"
-            android:gravity="left" />
+            android:layout_marginStart="20dp"
+            android:gravity="start" />
     </LinearLayout>
 
     <Button
@@ -154,7 +162,7 @@
         android:id="@+id/itemClearBtn"
         android:text="@string/clearText"
         android:layout_below="@id/linearLayout3"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" />
 

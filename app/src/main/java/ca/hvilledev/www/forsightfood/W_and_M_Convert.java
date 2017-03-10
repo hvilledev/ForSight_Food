@@ -1,9 +1,9 @@
 package ca.hvilledev.www.forsightfood;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,20 +25,25 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+import static ca.hvilledev.www.forsightfood.R.layout.w_and_m_convert;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_DESCRIPTION;
-import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
-import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_PRIMARY_KEY;
 
 /**
  * Created by miked on 06/11/14.
  */
-public class W_and_M_Convert extends ListActivity {
+// TODO     think about showiing existing conversions for unit1 below unit2 and unit2's below unit1.  Then should be selectable to replace the unit above them.
+public class W_and_M_Convert extends Activity{
     private Integer sw;
 //    private final String  swu1="lvUnit1", swu2="lvUnit2", swa1="lvAmt1", swa2="lvAmt2";
     private Double factor,amount1=0.,amount2=0.;
-    DecimalFormat fourDForm = new DecimalFormat("#.####");
+    private ListAdapter listAdapterUnit1Alt,listAdapterUnit2Alt;
+ //   private DecimalFormat fourDForm = new DecimalFormat("#.####");
+
+
+    private ArrayList<String> stringArrayUnit1Alt = new ArrayList<String>();
+    private ArrayList<String> stringArrayUnit2Alt = new ArrayList<String>();
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,8 +62,8 @@ public class W_and_M_Convert extends ListActivity {
                         .show();
                 break;
             // action with ID action_refresh was selected
-            case R.id.wandm_Convert:
-                Toast.makeText(this, "Convert selected!!!", Toast.LENGTH_SHORT)
+            case R.id.wandm_Edit:
+                Toast.makeText(this, "Edit selected!!!", Toast.LENGTH_SHORT)
                         .show();
                 break;
             // action with ID action_settings was selected
@@ -79,27 +84,66 @@ public class W_and_M_Convert extends ListActivity {
     }
 
     private W_and_MListAdapter lvWandMSpinAdapter;
-    ArrayList<W_and_MViewWrapper> adapterWandM;
+    private ArrayList<W_and_MViewWrapper> adapterWandM;
     EditText inputUnit;
-    ArrayList<HashMap<String, String>> w_and_mArrayHashList, unitsArrayHashList;
-    ArrayList<String> spinnerUnitList;
+    private ArrayList<HashMap<String, String>> w_and_mArrayHashList, unitsArrayHashList;
+    private ArrayList<String> spinnerUnitList;
+//    ArrayList<String> stringArrayUnit1Alt,stringArrayUnit2Alt;
+    private ArrayAdapter<String> arrayAdapterUnit1Alt;
+    private ArrayAdapter<String> arrayAdapterUnit2Alt;
     String[] w_and_mList;
-    String unit1,unit2;
+    private String unit1,unit2;
     Integer spin1Pos, spin2Pos;
     TextView lineItemId;
     private Cursor cursor;
-    private static Spinner lvSpin1, lvSpin2;
-    private static EditText lvAmt1, lvAmt2;
-    private static View row;
+    private Spinner lvSpin2;
+    private  EditText lvAmt1, lvAmt2;
+    private  View row;
     private SimpleAdapter simpAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(w_and_m_convert);
+
+        final ListView listViewUnit1Alt = (ListView) findViewById(R.id.unit1AltListView);
+        final ListView listViewUnit2Alt = (ListView) findViewById(R.id.unit2AltListView);
+
+
+        sw=0;
+
+        arrayAdapterUnit1Alt = new ArrayAdapter<String>(this,
+                R.layout.unit_alt_item,
+                R.id.unitAltItemText,
+                stringArrayUnit1Alt);
+
+        listViewUnit1Alt.setAdapter(arrayAdapterUnit1Alt);
+
+        arrayAdapterUnit2Alt = new ArrayAdapter<String>(this,
+                R.layout.unit_alt_item,
+                R.id.unitAltItemText,
+                stringArrayUnit2Alt);
+
+        listViewUnit2Alt.setAdapter(arrayAdapterUnit2Alt);
         adapterWandM = new ArrayList<W_and_MViewWrapper>();
 
-        setContentView(R.layout.w_and_m_convert);
+//        stringArrayUnit1Alt = new ArrayList<String>();
+//        stringArrayUnit2Alt = new ArrayList<String>();
+//
+//
+//
+//        stringArrayUnit1Alt.add("unit A1");
+//        stringArrayUnit1Alt.add("unit A2");
+//        stringArrayUnit1Alt.add("unit A3");
+//        stringArrayUnit1Alt.add("unit A4");
+//
+//        stringArrayUnit2Alt.add("unit B1");
+//        stringArrayUnit2Alt.add("unit B2");
+//        stringArrayUnit2Alt.add("unit B3");
+//        stringArrayUnit2Alt.add("unit B4");
+
+
 
 //        Get data to fill spinners
         SQLite_Control w_and_mDB = new SQLite_Control(this);
@@ -109,28 +153,59 @@ public class W_and_M_Convert extends ListActivity {
         int i;
         for (i = 0; i < unitsArrayHashList.size(); i++) {
 
-            spinnerUnitList.add(unitsArrayHashList.get(i).get(FN_UNITS_DESCRIPTION).toString());
+            spinnerUnitList.add(unitsArrayHashList.get(i).get(FN_UNITS_DESCRIPTION));
         }
 
-        final Spinner spinnerUnit1 = (Spinner) findViewById(R.id.w_and_m_convert_unit_1_spinner);
-        lvSpin1 = (Spinner) findViewById(R.id.w_and_m_convert_unit_1);
-        final Spinner spinnerUnit2 = (Spinner) findViewById(R.id.w_and_m_convert_unit_2_spinner);
-        lvSpin2 = (Spinner) findViewById(R.id.w_and_m_convert_unit_2);
-        lvAmt1 = (EditText) findViewById(R.id.w_and_m_convert_amount_1);
-        lvAmt2 = (EditText) findViewById(R.id.w_and_m_convert_amount_2);
+        final Spinner spinnerUnit1 = (Spinner) findViewById(R.id.wandmConvertUnit1Spinner);
+     //   lvSpin1 = (Spinner) findViewById(R.id.w_and_m_convert_unit_1_spinner);
+        Spinner lvSpin1 = (Spinner) spinnerUnit1;
+        final Spinner spinnerUnit2 = (Spinner) findViewById(R.id.wandmConvertUnit2Spinner);
+      //  lvSpin2 = (Spinner) findViewById(R.id.w_and_m_convert_unit_2_spinner);
+        lvSpin2 = spinnerUnit2;
+        lvAmt1 = (EditText) findViewById(R.id.wandmConvertAmount1);
+        lvAmt2 = (EditText) findViewById(R.id.wandmConvertAmount2);
+//
+//        final ListView listViewUnit1Alt = (ListView) findViewById(R.id.unit1AltListView);
+//        final ListView listViewUnit2Alt = (ListView) findViewById(R.id.unit2AltListView);
+//
 
 //        FillSpinner(lvSpin1, unitsArrayHashList);
+//  todo   sort the spinners.
+//  todo   use view adapter to put both Id and Desc in spinners.
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 spinnerUnitList);
 
-//  todo   sort the spinners.
-//  todo   use view adapter to put both Id and Desc in spinners.
 
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUnit1.setAdapter(spinnerAdapter);
         spinnerUnit2.setAdapter(spinnerAdapter);
+
+//
+//
+//        Setup alternate list for unit1 and unit2
+//
+//        storesList = getResources().getStringArray(R.array.dummy_stores_list);
+//
+////        For multiple selection.  (It also allow single pic with check box.
+//        storesAA =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, storesList);
+//
+//        setListAdapter(storesAA);
+//
+//        arrayAdapterUnit1Alt = new ArrayAdapter<String>(this,
+//                R.layout.unit_alt_item,
+//                R.id.unitAltItemText,
+//                stringArrayUnit1Alt);
+//
+//        listViewUnit1Alt.setAdapter(arrayAdapterUnit1Alt);
+//
+//        arrayAdapterUnit2Alt = new ArrayAdapter<String>(this,
+//                R.layout.unit_alt_item,
+//                R.id.unitAltItemText,
+//                stringArrayUnit2Alt);
+//
+//        listViewUnit2Alt.setAdapter(arrayAdapterUnit2Alt);
 
 
 //        ListAdapter spin1Adapter = new SimpleAdapter(
@@ -160,12 +235,6 @@ public class W_and_M_Convert extends ListActivity {
             String unit1 = thisIntent.getStringExtra("unit1");
             String unit2 = thisIntent.getStringExtra("unit2");
             factor = Double.parseDouble(thisIntent.getStringExtra("factor"));
-//            String amount1 = thisIntent.getStringExtra("amount1");
-//            String amount2 = thisIntent.getStringExtra("amount2");
-
-
-//            TextView tvAmount1 = (TextView) findViewById(R.id.w_and_m_convert_amount_1);
-//            TextView tvAmount2 = (TextView) findViewById(R.id.w_and_m_convert_amount_2);
 
             int spinnerPosition1 = spinnerAdapter.getPosition(unit1);
             int spinnerPosition2 = spinnerAdapter.getPosition(unit2);
@@ -176,6 +245,7 @@ public class W_and_M_Convert extends ListActivity {
 
 //            Don't check for conversion now because this came from
 //            a click on list of all conversions.  No amounts yet.
+
         }
 
         if (unitsArrayHashList.size() != 0) {
@@ -185,14 +255,19 @@ public class W_and_M_Convert extends ListActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     unit1 = spinnerUnit1.getItemAtPosition(i).toString();
                     sw = 1;
-                    if (unit1!=unit2) {
+                    arrayAdapterUnit1Alt.clear();
+                    stringArrayUnit1Alt=fillUnitAltList(unit1);
+                    arrayAdapterUnit1Alt.addAll(stringArrayUnit1Alt);  // API level [1..10] use for(..){ adapter.add(question.get(index)) }  or simply implement addAll method in you custom adapter for your own convenience (thanks to @Mena)
+                    arrayAdapterUnit1Alt.notifyDataSetChanged();
+                    if (unit1 != unit2) {
 
                         if (unit2 != null) factor = getFactor(unit1, unit2);
+
                         checkDoConvert();
                     }
-                }
 
-                @Override
+                }
+             @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
 
                 }
@@ -203,6 +278,11 @@ public class W_and_M_Convert extends ListActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     unit2 = spinnerUnit2.getItemAtPosition(i).toString();
                     sw = 2;
+                    arrayAdapterUnit2Alt.clear();
+                    stringArrayUnit2Alt=fillUnitAltList(unit2);
+                    arrayAdapterUnit2Alt.addAll(stringArrayUnit2Alt);  // API level [1..10] use for(..){ adapter.add(question.get(index)) }  or simply implement addAll method in you custom adapter for your own convenience (thanks to @Mena)
+                    arrayAdapterUnit2Alt.notifyDataSetChanged();
+
                     if (unit1!=unit2) {
 
                         if (unit1 != null) factor = getFactor(unit1, unit2);
@@ -225,17 +305,20 @@ public class W_and_M_Convert extends ListActivity {
                         try {
                             amount1 = Double.parseDouble(tmp);
                         } catch (NumberFormatException e) {
-                            Log.i("lvAmt1 afterTextChanged CATCH   ", "*" + tmp);
+                            // lvAmt1 afterTextChanged CATCH
+                            Log.i("W_and_M_Conv 307 ", "*" + tmp);
                         }
                     }
-                    if (sw==20 || sw ==2){
-                        sw=0;
-                    }else {
+                    if (sw == 20 || sw == 2) {
+                        sw = 0;
+                    } else {
 
                         tmp = lvAmt1.getText().toString();
-                        Log.i("BEFORE            lvAmt1 afterTextChanged if   ","*"+tmp+ "* :" +tmp.length() + ":");
+                        // BEFORE lvAmt1 afterTextChanged if
+                        Log.i("W_and_M_Conv 315", "*" + tmp + "* :" + tmp.length() + ":");
                         if (tmp.length() > 0) {
-                            Log.i("lvAmt1 afterTextChanged if   ","*"+tmp+ "* :" +tmp.length() + ":");
+                            // lvAmt1 afterTextChanged if
+                            Log.i("W_and_M_Conv 318 ", "*" + tmp + "* :" + tmp.length() + ":");
                             try {
                                 amount1 = Double.parseDouble(tmp);
                                 if (amount1 > 0) {
@@ -243,7 +326,8 @@ public class W_and_M_Convert extends ListActivity {
                                     checkDoConvert();
                                 }
                             } catch (NumberFormatException e) {
-                                Log.i("lvAmt1 afterTextChanged CATCH   ", "*" + tmp);
+                                // lvAmt1 afterTextChanged CATCH
+                                Log.i("W_and_M_Conv 327", "*" + tmp);
                             }
                         }
                     }
@@ -271,16 +355,19 @@ public class W_and_M_Convert extends ListActivity {
                         try {
                             amount2 = Double.parseDouble(tmp);
                         } catch (NumberFormatException e) {
-                            Log.i("lvAmt2 afterTextChanged CATCH   ","*"+tmp);
+                            //lvAmt2 afterTextChanged CATCH
+                            Log.i("W_and_M_Conv 356 ","*"+tmp);
                         }
                     }
                     if (sw==10 || sw==1){
                         sw=0;
                     }else {
                         tmp = lvAmt2.getText().toString();
-                        Log.i("BEFORE            lvAmt2 afterTextChanged if   ","*"+tmp+ "* :" +tmp.length() + ":");
+                        // BEFORE            lvAmt2 afterTextChanged if
+                        Log.i("W_and_M_Conv 364 ","*"+tmp+ "* :" +tmp.length() + ":");
                         if (tmp.length() > 0) {
-                            Log.i("lvAmt2 afterTextChanged if   ","*"+tmp+ "* :" +tmp.length() + ":");
+                            //lvAmt2 afterTextChanged if
+                            Log.i("W_and_M_Conv 368 ","*"+tmp+ "* :" +tmp.length() + ":");
                             try {
                                 amount2 = Double.parseDouble(tmp);
                                 if (amount2 > 0) {
@@ -288,7 +375,8 @@ public class W_and_M_Convert extends ListActivity {
                                     checkDoConvert();
                                 }
                             } catch (NumberFormatException e) {
-                                Log.i("lvAmt2 afterTextChanged CATCH   ","*"+tmp);
+                                // lvAmt2 afterTextChanged CATCH
+                                Log.i("W_and_M_Conv 376 ","*"+tmp);
                             }
                         }
                     }
@@ -306,8 +394,49 @@ public class W_and_M_Convert extends ListActivity {
                 }
 
             });
+
+            listViewUnit1Alt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    String unit2alt = listViewUnit1Alt.getItemAtPosition(i).toString();
+                    Integer pos = spinnerUnitList.indexOf(unit2alt);
+                    spinnerUnit2.setSelection(pos);
+
+                }
+            });
+
+            listViewUnit2Alt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    String unit1alt = listViewUnit2Alt.getItemAtPosition(i).toString();
+                    Integer pos = spinnerUnitList.indexOf(unit1alt);
+                    spinnerUnit1.setSelection(pos);
+
+                }
+            });
         }
+
+
+//        *** Unit 1 alternate conversion units.
+
+
+
+
+
+
     }
+
+
+    private void notifyUnit1Changed() {
+        arrayAdapterUnit1Alt.notifyDataSetChanged();
+    }
+
+
+    private void notifyUnit2changed() {
+        arrayAdapterUnit2Alt.notifyDataSetChanged();
+    }
+
 
     private void checkDoConvert() {
 
@@ -317,9 +446,16 @@ public class W_and_M_Convert extends ListActivity {
                 case 1:
                     factor = getFactor(unit1, unit2);
                     if (amount1 > 0 && factor > 0) {
+                        //  To Type has chnaged
+/*
                         amount2 = amount1 * factor;
-                        EditText tmp = (EditText) findViewById(R.id.w_and_m_convert_amount_2);
-                        tmp.setText(amount2.toString());
+                        EditText tmp = (EditText) findViewById(R.id.wandmConvertAmount2);
+                        String result = String.format("%.2f", amount2);
+*/
+                        amount1 = amount2 / factor;
+                        EditText tmp = (EditText) findViewById(R.id.wandmConvertAmount1);
+                        String result = String.format(getString(R.string.twodecplace), amount1);
+                        tmp.setText(result);
 
                     }
                     break;
@@ -327,9 +463,11 @@ public class W_and_M_Convert extends ListActivity {
                 case 2:
                     factor = getFactor(unit1, unit2);
                     if (amount1 > 0 && factor > 0) {
+                        //  From Type has chnaged
                         amount2 = amount1 * factor;
-                        EditText tmp = (EditText) findViewById(R.id.w_and_m_convert_amount_2);
-                        tmp.setText(amount2.toString());
+                        EditText tmp = (EditText) findViewById(R.id.wandmConvertAmount2);
+                        String result = String.format(getString(R.string.twodecplace), amount2);
+                        tmp.setText(result);
 
                     }
                     break;
@@ -338,10 +476,15 @@ public class W_and_M_Convert extends ListActivity {
                     if(amount1>0){
 
                         if (factor!=0) {
+                            //  From amount has changed.
+     //                       amount2 =  Double.valueOf(fourDForm.format(amount2));
                             amount2=amount1*factor;
-                            amount2 =  Double.valueOf(fourDForm.format(amount2));
-                            EditText tmp = (EditText) findViewById(R.id.w_and_m_convert_amount_2);
-                            tmp.setText(amount2.toString());
+                            EditText tmp = (EditText) findViewById(R.id.wandmConvertAmount2);
+                            String result = String.format(getString(R.string.twodecplace), amount2);
+/*                            amount1=amount2*factor;
+                            EditText tmp = (EditText) findViewById(R.id.wandmConvertAmount1);
+                            String result = String.format(getString(R.string.twodecplace), amount1);*/
+                            tmp.setText(result);
                         } else {
                             // todo if no factor
                         }
@@ -352,10 +495,12 @@ public class W_and_M_Convert extends ListActivity {
                 case 20:
                     if(amount2>0){
                         if (factor!=0) {
+                         //   To amount has changed
                             amount1=amount2/factor;
-                            amount1 =  Double.valueOf(fourDForm.format(amount1));
-                            EditText tmp = (EditText) findViewById(R.id.w_and_m_convert_amount_1);
-                            tmp.setText(amount1.toString());
+     //                       amount1 =  Double.valueOf(fourDForm.format(amount1));
+                            EditText tmp = (EditText) findViewById(R.id.wandmConvertAmount1);
+                            String result = String.format(getString(R.string.twodecplace), amount1);
+                            tmp.setText(result);
                         } else {
                             // todo like above.
                         }
@@ -368,6 +513,15 @@ public class W_and_M_Convert extends ListActivity {
         sw=0;
     }
 
+    private ArrayList<String> fillUnitAltList(String unit) {
+
+        SQLite_Control gfDb = new SQLite_Control(this);
+     //   ArrayList<String> sAUnit1Alt  = new ArrayList<String>();
+        @SuppressWarnings("unchecked")
+        ArrayList<String> sAUnit1Alt = (ArrayList<String>) gfDb.getAllUnitConversions(unit);
+        return sAUnit1Alt;
+    }
+
     private double getFactor(String unit1, String unit2) {
 
         SQLite_Control gfDb = new SQLite_Control(this);
@@ -377,4 +531,31 @@ public class W_and_M_Convert extends ListActivity {
 
         return tmpp;
     }
+//
+//    private class StableArrayAdapter extends ArrayAdapter<String> {
+//
+//        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+//
+//        public StableArrayAdapter(Context context, int textViewResourceId,
+//                                  List<String> objects) {
+//            super(context, textViewResourceId, objects);
+//            for (int i = 0; i < objects.size(); ++i) {
+//                mIdMap.put(objects.get(i), i);
+//            }
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            String item = getItem(position);
+//            return mIdMap.get(item);
+//        }
+//
+//        @Override
+//        public boolean hasStableIds() {
+//            return true;
+//        }
+//
+//    }
+
+
 }

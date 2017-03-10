@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="1 unit of:" />
+            android:text="@string/_1_unit_of" />
 
         <EditText
             android:id="@+id/w_and_mUnit_A_EditText"
@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="converted to:" />
+            android:text="@string/converted_to" />
 
         <EditText
             android:id="@+id/w_and_mUnit_B_EditText"
@@ -108,14 +108,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="is equivalent to:" />
+            android:text="@string/is_equivalent_to" />
 
         <EditText
             android:id="@+id/w_and_mFactorEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:padding="5dp"></EditText>
+            android:inputType="numberDecimal"
+            android:padding="5dp">
+        </EditText>
+
     </LinearLayout>
 
 

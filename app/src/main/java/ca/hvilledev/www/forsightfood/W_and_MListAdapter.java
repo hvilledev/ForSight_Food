@@ -19,11 +19,11 @@ import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_W_AND_M_FACTOR;
 /**
  * Created by miked on 05/11/14.
  */
-public class W_and_MListAdapter extends BaseAdapter {
+class W_and_MListAdapter extends BaseAdapter {
 
     private ArrayList<HashMap<String, String>> mData;
     private LayoutInflater mInflater;
-    Context ctx;
+    private Context ctx;
 
     public W_and_MListAdapter(Context context,
                             ArrayList<HashMap<String, String>> data) {
@@ -66,7 +66,7 @@ public class W_and_MListAdapter extends BaseAdapter {
         View row;
 
         if (convertView == null) {
-            Log.i("getView if ", "*** " + position + "  " + convertView);
+            Log.i("W_and_MListAdapter 69", "*** " + position + "  " + convertView);
 
             LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.w_and_m_item, parent,false);
@@ -75,11 +75,13 @@ public class W_and_MListAdapter extends BaseAdapter {
             row = convertView;
         }
 //        mView = convertView;
+        Log.i("W_and_MListAdapter 78", "*** " + row + "  " + position);
+
         return this.bindData(row, position);
 
     }
 
-    public View bindData(View row, int position) {
+    private View bindData(View row, int position) {
 
         if (mData.get(position) == null) {
             return row;

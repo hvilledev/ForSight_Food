@@ -1,29 +1,18 @@
 package ca.hvilledev.www.forsightfood;
 
-import android.app.Activity;
-import android.app.LauncherActivity;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,11 +57,9 @@ public class Manage_Units extends ListActivity {
     }
 
     private UnitsListAdapter lvUnitsAdapter;
-    ArrayList<UnitsViewWrapper> adapterUnits;
     EditText inputUnit;
-    ArrayList<HashMap<String, String>> unitsArrayHashList;
     String[] unitsList;
-    TextView lineItemId;
+    private TextView lineItemId;
     private Cursor cursor;
     private static ListView lv;
     private static View row;
@@ -82,14 +69,14 @@ public class Manage_Units extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        adapterUnits=new ArrayList<UnitsViewWrapper>();
+        ArrayList<UnitsViewWrapper> adapterUnits = new ArrayList<UnitsViewWrapper>();
 
         setContentView(R.layout.units);
 
         SQLite_Control unitDB = new SQLite_Control(this);
-        unitsArrayHashList = unitDB.getAllUnits();
+        ArrayList<HashMap<String, String>> unitsArrayHashList = unitDB.getAllUnits();
 
-        lv= (ListView) findViewById(android.R.id.list);
+        lv = (ListView) findViewById(android.R.id.list);
 
 
 
@@ -132,7 +119,7 @@ public class Manage_Units extends ListActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Log.i("in  onActivityResult   requestCode :", requestCode + "  resultCode =" + resultCode);
+        Log.i("Manage_Units 135:", requestCode + "  resultCode =" + resultCode);
         if (requestCode == 100) {
             if(resultCode == RESULT_OK){
                 lvUnitsAdapter.notifyDataSetChanged();
@@ -140,7 +127,7 @@ public class Manage_Units extends ListActivity {
                 lv.refreshDrawableState();
 
             }else {
-                Log.i("onActivityResult : ", " resultCode ="+resultCode);
+                Log.i("Manage_Units 143 : ", " resultCode ="+resultCode);
             }
         }
     }//onActivityResult
@@ -164,7 +151,7 @@ public class Manage_Units extends ListActivity {
         startActivity(theIntent);
     }
 
-    public static void updateUnitRowLv (HashMap<String,String> rowHash){
+    public static void updateUnitRowLv(HashMap<String, String> rowHash){
 
         HashMap<String ,String> item = rowHash;
 

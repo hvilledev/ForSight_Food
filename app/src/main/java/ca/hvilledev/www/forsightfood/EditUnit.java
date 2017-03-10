@@ -8,30 +8,28 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.HashMap;
 
-import static ca.hvilledev.www.forsightfood.Manage_Units.updateUnitRowLv;
-import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
+//import  ca.hvilledev.www.forsightfood.Manage_Units.updateUnitRowLv;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_DESCRIPTION;
+import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
 
 public class EditUnit extends Activity{
 
-    EditText unitUpdtId,unitUpdtDesc, unitUpdtSys;
-    public static EditUnit instance;
+    private EditUnit instance;
 
-    SQLite_Control dbTools = new SQLite_Control(this);
+    private SQLite_Control dbTools = new SQLite_Control(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_unit);
 
-        unitUpdtId = (EditText) findViewById(R.id.unitIdEditText);
-        unitUpdtDesc = (EditText) findViewById(R.id.unitDescriptionEditText);
-        unitUpdtSys = (EditText) findViewById(R.id.unitSystemEditText);
+        EditText unitUpdtId = (EditText) findViewById(R.id.unitIdEditText);
+        EditText unitUpdtDesc = (EditText) findViewById(R.id.unitDescriptionEditText);
+        EditText unitUpdtSys = (EditText) findViewById(R.id.unitSystemEditText);
 
         Intent theIntent = getIntent();
 
@@ -41,8 +39,8 @@ public class EditUnit extends Activity{
 
         if(unitList.size() != 0){
 
-            Log.i("************EditUnit if :","ukey "+ FN_UNITS_PRIMARY_KEY + " udesc " + FN_UNITS_DESCRIPTION + "  usys  "+ FN_UNITS_SYSTEM);
-            Log.i("************EditUnit if :","unitUpdtId "+ unitUpdtId + " unitUpdtDesc " + unitUpdtDesc + "  unitUpdtSys  "+ unitUpdtSys);
+            Log.i("EditUnit 44 :","ukey "+ FN_UNITS_PRIMARY_KEY + " udesc " + FN_UNITS_DESCRIPTION + "  usys  "+ FN_UNITS_SYSTEM);
+            Log.i("EditUnit 45 :","unitUpdtId "+ unitUpdtId + " unitUpdtDesc " + unitUpdtDesc + "  unitUpdtSys  "+ unitUpdtSys);
 
             unitUpdtId.setText(unitList.get(FN_UNITS_PRIMARY_KEY));
             unitUpdtDesc.setText(unitList.get(FN_UNITS_DESCRIPTION));
@@ -78,18 +76,18 @@ public class EditUnit extends Activity{
 //    ************ Update DB *************
 
 //    ************ Update ListView *************
-                updateUnitRowLv(unitUpdtHashMap);
+                ca.hvilledev.www.forsightfood.Manage_Units.updateUnitRowLv(unitUpdtHashMap);
 //    ************ Update ListView *************
 
                 Log.i("editunit update", updateResults.toString());
-                Log.i("BEFORE setResult in EditUnit: ", unitId);
+                Log.i("EditUnit 85 ", unitId);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("key",unitId);
 
 //                setResult(RESULT_OK);
 
-                Log.i("After setResult in EditUnit: ", unitId);
+                Log.i("EditUnit 92 ", unitId);
 
                 finish();
             }
@@ -99,7 +97,7 @@ public class EditUnit extends Activity{
             @Override
             public void onClick(View view) {
 
-                Log.i("unit delete", "***********************");
+                Log.i("EditUnit unit delete", "***********************");
 
             }
         });
@@ -122,7 +120,7 @@ public class EditUnit extends Activity{
     }
 
 
-    public static EditUnit getConfig(){
+    public  EditUnit getConfig(){
         return instance;
     }
 }

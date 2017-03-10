@@ -2,7 +2,6 @@ package ca.hvilledev.www.forsightfood;
 
 
 import android.content.Context;
-import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_DESCRIPTION;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_PRIMARY_KEY;
 import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
@@ -19,15 +19,14 @@ import static ca.hvilledev.www.forsightfood.SQLite_Control.FN_UNITS_SYSTEM;
 class UnitsListAdapter extends BaseAdapter {
 
     private ArrayList<HashMap<String, String>> mData;
-    private LayoutInflater mInflater;
-    Context ctx;
+    private Context ctx;
 
     public UnitsListAdapter(Context context,
                             ArrayList<HashMap<String, String>> data) {
 
         ctx = context;
 
-        this.mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         mData = new ArrayList<HashMap<String, String>>();
         mData = data;
@@ -63,7 +62,7 @@ class UnitsListAdapter extends BaseAdapter {
         View row;
 
         if (convertView == null) {
-            Log.i("getView if ", "*** " + position + "  " + convertView);
+            Log.i("UnitListAd..66 ", "*** " + position + "  " + convertView);
 
             LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.unit_item, parent,false);
@@ -76,7 +75,7 @@ class UnitsListAdapter extends BaseAdapter {
 
     }
 
-    public View bindData(View row, int position) {
+    private View bindData(View row, int position) {
 
         if (mData.get(position) == null) {
             return row;

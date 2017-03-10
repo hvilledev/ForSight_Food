@@ -7,10 +7,10 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@android:drawable/ic_input_add"
-        android:title="Refresh"/>
+        android:title="@string/refresh"/>
     <item
         android:id="@+id/action_settings"
-        android:title="Settings">
+        android:title="@string/settings">
     </item>
 
 </menu>
