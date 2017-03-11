@@ -261,6 +261,7 @@
 
     </string-array>
 
+<!--
     <string-array  name="conversions">
         <record unitsCol1="Stone" unitsCol2="m" wandmCol1="Stone" wandmCol2="Pound"  wandmCol3="14" />
         <record unitsCol1="Liter" unitsCol2="m" wandmCol1="Liter" wandmCol2="Milliliter"  wandmCol3="1000" />
@@ -312,6 +313,7 @@
 
 
     </string-array>
+-->
 
 
 
